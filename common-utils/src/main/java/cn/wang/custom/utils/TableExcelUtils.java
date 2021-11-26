@@ -22,10 +22,10 @@ public class TableExcelUtils {
     public static void main(String[] args) throws IOException {
         File file = new File("D:\\workspace\\wangUtils\\a.xls");
         byte[] data = FileUtils.readFileToByteArray(file);
-        List<Map<Integer, String>> mapList = WExcelReadUtils.getExcelRowMapList(data,file.getName(), "申请单明细");
+        List<Map<Integer, String>> mapList = WExcelReadUtils.getExcelRowMapList(data,file.getName(), "成品表");
         Map<String, Integer> keyMap = getKeyMap();
         Map<String, String> valueDescMap = getValueDescMap();
-        String sql = getCreateTableSql("store_entry_apply_detail","申请单明细",keyMap, valueDescMap, mapList, 1);
+        String sql = getCreateTableSql("T_IMC_PROCESS_ORDER_M_C","成品表",keyMap, valueDescMap, mapList, 1);
         System.out.println(sql);
     }
 
@@ -93,7 +93,7 @@ public class TableExcelUtils {
         result.put(COL_TYPE_KEY+"-浮点型"," number");
         result.put(COL_TYPE_KEY+"-日期型"," date ");
         result.put(COL_IS_NULL_KEY+"-"," not null ");
-        for (int i = 1; i < 1000; i++) {
+        for (int i = 1; i <= 1000; i++) {
             result.put(COL_LEN_KEY+"-"+i,"("+i+") ");
         }
         result.put(COL_LEN_KEY+"-长度18精度6","(18,6) ");

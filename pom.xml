@@ -10,6 +10,7 @@
     <modules>
         <module>swing-ui</module>
         <module>common-utils</module>
+        <module>web-api</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -29,10 +30,13 @@
 <!--        logback-->
         <logback.version>1.2.3</logback.version>
         <!--        slf4j-->
-        <slf4j.version>1.8.0-beta4</slf4j.version>
+        <slf4j.version>1.7.25</slf4j.version>
 <!--        lombok-->
         <lombok.version>1.18.12</lombok.version>
-
+<!--        spring.boot-->
+        <spring.boot.version>2.5.2</spring.boot.version>
+<!--        swagger-->
+        <swagger.version>2.9.2</swagger.version>
     </properties>
 <!--    依赖管理-->
     <dependencyManagement>
@@ -86,6 +90,42 @@
                 <version>${poi.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <scope>test</scope>
+                <version>${spring.boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aop</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -113,4 +153,18 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <!-- 检索级别-->
+                    <source>1.8</source>
+                    <!--      打包级别-->
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

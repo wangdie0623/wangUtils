@@ -1,0 +1,31 @@
+spring:
+  application:
+    #    应用名称
+    name: @name@
+  #    子配置选项
+  profiles:
+    #    子配置选择
+    active: '@env@'
+  jpa:
+     show-sql: true
+     hibernate:
+              ddl-auto: 'update'
+     database-platform: cn.wang.custom.web.api.dialect.SQLiteDialect
+
+
+#web服务配置
+server:
+  #  挂载端口
+  port: '@config.port@'
+  #  请求服务配置
+  servlet:
+    #    请求服务根路径配置 默认空
+    context-path: /${spring.application.name}
+# 日志配置
+logging:
+  #  日志级别指定
+  level:
+    #    全局日志级别
+    root: info
+  file:
+    path: @logPath@
