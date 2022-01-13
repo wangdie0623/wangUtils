@@ -10,7 +10,9 @@ import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 
 @Slf4j
+//加载springConfig
 @EnableSpringConfigured
+//exclude-排除指定自动配置
 @SpringBootApplication(exclude = {JacksonAutoConfiguration.class})
 public class WebApiApplication implements ApplicationRunner {
     @Value("${spring.application.name}")

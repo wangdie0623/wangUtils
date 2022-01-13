@@ -2,14 +2,18 @@ spring:
   application:
     #    应用名称
     name: @name@
-  #    子配置选项
+  #    子配置配置
   profiles:
     #    子配置选择
     active: '@env@'
+  # jpa 配置
   jpa:
+     # sql日志是否打印
      show-sql: true
      hibernate:
+              # 表数据执行方式 create-无新建，表清空 create-drop-继承create，结束删除表 update-无新建，不同就更新  validate-启动校验，不同报错
               ddl-auto: 'update'
+     #sql 本地化实现类
      database-platform: cn.wang.custom.web.api.dialect.SQLiteDialect
 
 
@@ -23,9 +27,9 @@ server:
     context-path: /${spring.application.name}
 # 日志配置
 logging:
-  #  日志级别指定
   level:
-    #    全局日志级别
+    #全局日志级别
     root: info
   file:
+    # 日志文件路径
     path: @logPath@

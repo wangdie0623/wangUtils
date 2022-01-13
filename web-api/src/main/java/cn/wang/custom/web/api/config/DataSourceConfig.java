@@ -13,22 +13,27 @@ import java.sql.SQLException;
 /**
  * 数据源配置
  *
- * @author 王叠 2019/5/5 14:24
+ * @author  2019/5/5 14:24
  */
 @Configuration
 @PropertySource("classpath:jdbc/${spring.profiles.active}.properties")
 public class DataSourceConfig {
 
+    //数据源 用户名
     @Value("${jdbc.user}")
     private String name;
-
+    //数据源 密码
     @Value("${jdbc.pwd}")
     private String pwd;
-
+    //数据源 jdbc url
     @Value("${jdbc.url}")
     private String url;
+    //数据源 jdbc 驱动实现类
     @Value("${jdbc.clzss}")
     private String clzss;
+    //数据源 有效性校验sql
+    @Value("${jdbc.validationQuery}")
+    private String validationQuery;
 
 
     /**
@@ -46,7 +51,7 @@ public class DataSourceConfig {
         source.setPassword(pwd);
         source.setUrl(url);
         source.setDriverClassName(clzss);
-        source.setValidationQuery("select 1");
+        source.setValidationQuery(validationQuery);
         source.init();
         return source;
     }
