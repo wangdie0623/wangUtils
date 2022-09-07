@@ -6,7 +6,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 
-public class ClassUtils {
+public class WClassUtils {
     /**
      * set方法打印样例
      * @param clazz

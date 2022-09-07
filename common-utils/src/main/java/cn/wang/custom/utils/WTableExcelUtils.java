@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TableExcelUtils {
+public class WTableExcelUtils {
     private  static  final String COL_NAME_KEY="col";
     private  static  final String COL_TYPE_KEY="type";
     private  static  final String COL_IS_NULL_KEY="null";
