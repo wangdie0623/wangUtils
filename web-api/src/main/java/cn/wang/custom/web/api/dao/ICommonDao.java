@@ -1,12 +1,18 @@
 package cn.wang.custom.web.api.dao;
 
-import org.apache.poi.ss.formula.functions.T;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 
-import java.util.List;
+import java.util.Map;
+
 
 public interface ICommonDao {
-    void save(Object o);
+    void insert(Object o);
     void update(Object o);
     void delete(Object o);
-    List<T> selectAll(Class<T> tClass);
+    Session getSession();
+    Query getHqlQuery(String hql);
+    Query getSqlQuery(String sql);
+    void setArgs(Query query,Object ... args );
+    void setArgs(Query query, Map<String,Object> args );
 }

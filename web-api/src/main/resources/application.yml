@@ -13,12 +13,12 @@ spring:
      hibernate:
               # 表数据执行方式 create-无新建，表清空 create-drop-继承create，结束删除表 update-无新建，不同就更新  validate-启动校验，不同报错
               ddl-auto: 'update'
+
      #sql 本地化实现类
-     database-platform: cn.wang.custom.web.api.dialect.SQLiteDialect
-
-
-#web服务配置
-server:
+     database-platform: org.hibernate.dialect.SQLiteDialect
+     properties:
+       hibernate:
+         current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
   #  挂载端口
   port: '@config.port@'
   #  请求服务配置

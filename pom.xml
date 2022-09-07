@@ -8,7 +8,6 @@
     <artifactId>wang-utils</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>swing-ui</module>
         <module>common-utils</module>
         <module>web-api</module>
     </modules>
