@@ -21,7 +21,6 @@
         <name>web-api</name>
         <!--自定义属性java.version,值1.8-->
         <java.version>1.8</java.version>
-        <logPath>${basedir}/logs</logPath>
     </properties>
 
     <!--第三方jar依赖列表-->
@@ -115,8 +114,10 @@
                 </excludes>
                 <!--资源载入项列表-->
                 <includes>
-                    <!--载入当前目录资源文件-->
+                    <!--载入当前目录所有文件-->
                     <include>*</include>
+                    <!--载入views/vue-project/dist目录下所有文件-->
+                    <include>views/vue-project/dist/**</include>
                     <!--载入当前目录下jdbc目录指定文件-->
                     <include>jdbc/${env}.properties</include>
                 </includes>
@@ -129,6 +130,14 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.1.7.RELEASE</version>
+                    <!--设置加入依赖jar-->
+<!--                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>-->
             </plugin>
 
 <!--            <plugin>-->
@@ -151,6 +160,10 @@
             <id>local</id>
             <properties>
                 <env>local</env>
+                <!--日志目录-->
+                <logPath>${basedir}\logs</logPath>
+                <!--日志级别-->
+                <logLevel>DEBUG</logLevel>
             </properties>
             <!--子选项额外配置-->
             <activation>
@@ -162,7 +175,10 @@
             <id>test</id>
             <properties>
                 <env>test</env>
+                <!--日志目录-->
                 <logPath>/data/logs</logPath>
+                <!--日志级别-->
+                <logLevel>INFO</logLevel>
             </properties>
         </profile>
     </profiles>

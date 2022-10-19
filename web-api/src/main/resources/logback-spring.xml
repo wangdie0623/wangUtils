@@ -2,7 +2,7 @@
 <configuration>
 
     <!-- 日志根目录-->
-    <springProperty scope="context" name="LOG_HOME" source="logging.path" defaultValue="/data/logs"/>
+    <springProperty scope="context" name="LOG_HOME" source="logging.file.path" defaultValue="/data/logs"/>
 
     <!-- 日志级别 -->
     <springProperty scope="context" name="LOG_ROOT_LEVEL" source="logging.level.root" defaultValue="DEBUG"/>
@@ -14,7 +14,7 @@
     <property name="LOG_CHARSET" value="UTF-8" />
 
     <!-- 日志文件存放目录-->
-    <property name="LOG_DIR" value="${LOG_HOME}/%d{yyyyMMdd}" />
+    <property name="LOG_DIR" value="${LOG_HOME}/%d{yyyy-MM-dd}" />
 
     <!--对日志进行格式化
     %X MDC自定义变量

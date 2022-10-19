@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication(exclude = {JacksonAutoConfiguration.class})
 //开启事务管理
 @EnableTransactionManagement
+//指定hibernate 数据库对象管理范围
 @EntityScan("cn.wang.custom.web.api.entity")
 public class WebApiApplication implements ApplicationRunner {
     @Value("${spring.application.name}")

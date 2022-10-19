@@ -25,6 +25,9 @@ spring:
   servlet:
     #    请求服务根路径配置 默认空
     context-path: /${spring.application.name}
+  web:
+    resources:
+      static-locations: classpath:/views/vue-project/dist/
 # 日志配置
 logging:
   level:
