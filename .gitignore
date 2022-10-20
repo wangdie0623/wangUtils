@@ -2,3 +2,4 @@
 /swing-ui/target/
 .idea
 *.iml
+*.log
