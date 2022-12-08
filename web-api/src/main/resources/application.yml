@@ -27,7 +27,7 @@ spring:
     context-path: /${spring.application.name}
   web:
     resources:
-      static-locations: classpath:/views/vue-project/dist/
+      static-locations: classpath:/views/
 # 日志配置
 logging:
   level:

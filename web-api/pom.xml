@@ -116,8 +116,8 @@
                 <includes>
                     <!--载入当前目录所有文件-->
                     <include>*</include>
-                    <!--载入views/vue-project/dist目录下所有文件-->
-                    <include>views/vue-project/dist/**</include>
+                    <!--载入views/目录下所有文件-->
+                    <include>views/**</include>
                     <!--载入当前目录下jdbc目录指定文件-->
                     <include>jdbc/${env}.properties</include>
                 </includes>
