@@ -9,7 +9,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "custom_user")
-@org.hibernate.annotations.Table(appliesTo = "custom_user", comment = "城市基本信息")
 public class User {
     @Id
     @Column(name = "id")
