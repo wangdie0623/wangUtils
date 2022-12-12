@@ -26,6 +26,7 @@ public class WebApiApplication implements ApplicationRunner {
 
     public static void main(String[] args) {
         SpringApplication.run(WebApiApplication.class, args);
+        System.out.println("老王");
     }
 
     @Override
