@@ -31,9 +31,7 @@ public class BaseStore {
                 ||thingIndex>=things.size()||dataBeans==null||dataBeans.length==0){
             return;
         }
-        for (RoleFullDataBean item : dataBeans) {
-            things.get(thingIndex).beUse(dataBeans);
-        }
+        things.get(thingIndex).beUse(dataBeans);
         things.remove(thingIndex);
     }
 
