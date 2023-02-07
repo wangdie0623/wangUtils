@@ -5,14 +5,14 @@ import cn.wang.custom.utils.excel.WExcelReadUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.ss.usermodel.Workbook;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class WTableExcelUtils {
+public class WTableExcelTargetSqlUtils {
     private  static  final String COL_NAME_KEY="col";
     private  static  final String COL_TYPE_KEY="type";
     private  static  final String COL_IS_NULL_KEY="null";

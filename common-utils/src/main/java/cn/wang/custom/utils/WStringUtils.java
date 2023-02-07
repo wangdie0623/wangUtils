@@ -82,4 +82,31 @@ public class WStringUtils {
         }
         return builder.toString();
     }
+
+    /**
+     * 将下划线命名转驼峰命名
+     * @param source
+     * @return
+     */
+    public static String toCamelCase(String source) {
+        if (source == null) {
+            return null;
+        }
+        source = source.toLowerCase();
+        StringBuilder sb = new StringBuilder(source.length());
+        boolean upperCase = false;
+        for (int i = 0; i < source.length(); i++) {
+            char c = source.charAt(i);
+            if (c == '_') {
+                upperCase = true;
+            } else if (upperCase) {
+                sb.append(Character.toUpperCase(c));
+                upperCase = false;
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
 }

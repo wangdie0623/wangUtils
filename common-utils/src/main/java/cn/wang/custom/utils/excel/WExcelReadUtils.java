@@ -85,7 +85,7 @@ public class WExcelReadUtils {
             if (realCellValCount == 0) {
                 break;
             }
-            Map<Integer, String> rowMap = new HashMap<>();
+            Map<Integer, String> rowMap = new LinkedHashMap<>();
             rowMap.put(-1, Integer.toString(rowNum));
             Iterator<Cell> cellIterator = row.cellIterator();
             while (cellIterator.hasNext()) {
