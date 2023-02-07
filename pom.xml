@@ -13,34 +13,41 @@
     </modules>
     <packaging>pom</packaging>
 
-<!--    版本号设置-->
+    <!--    版本号设置-->
     <properties>
-<!--        web客户端工具-->
+        <!--        web客户端工具-->
         <http-client.version>4.5.13</http-client.version>
-<!--        json格式工具-->
-        <json.version>1.2.75</json.version>
-<!--        apache 相关工具类-->
+        <!--        json格式工具-->
+        <json.version>1.2.83</json.version>
+        <!--        apache 相关工具类-->
         <commons-io.version>2.8.0</commons-io.version>
         <commons-lang3.version>3.11</commons-lang3.version>
-<!--        数据库连接池-->
+        <!--        数据库连接池-->
         <commons-dbcp2.version>2.7.0</commons-dbcp2.version>
-<!--        办公office相关-->
+        <!--        办公office相关-->
         <poi.version>4.1.2</poi.version>
-<!--        logback-->
+        <!--        logback-->
         <logback.version>1.2.3</logback.version>
         <!--        slf4j-->
         <slf4j.version>1.7.25</slf4j.version>
-<!--        lombok-->
+        <!--        lombok-->
         <lombok.version>1.18.12</lombok.version>
-<!--        spring.boot-->
+        <!--        spring.boot-->
         <spring.boot.version>2.5.2</spring.boot.version>
-<!--        swagger-->
+        <!--        swagger-->
         <swagger.version>2.9.2</swagger.version>
-    </properties>
-<!--    依赖管理-->
-    <dependencyManagement>
-        <dependencies>
+        <swagger.jackson.version>2.12.3</swagger.jackson.version>
 
+    </properties>
+    <!--    依赖管理-->
+    <dependencyManagement>
+
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
             <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
@@ -124,6 +131,13 @@
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>${swagger.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${swagger.jackson.version}</version>
+            </dependency>
+
+
 
         </dependencies>
     </dependencyManagement>

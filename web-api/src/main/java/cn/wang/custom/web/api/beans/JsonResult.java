@@ -50,33 +50,34 @@ public class JsonResult {
         this.detail = detail;
     }
 
-    private static JsonResult build(boolean success, Integer errCode, String msg, Object detail) {
-        return new JsonResult(success, errCode, msg, detail);
+    private static String build(boolean success, Integer errCode, String msg, Object detail) {
+        return JSON.toJSONString(new JsonResult(success, errCode, msg, detail));
     }
 
-    public static JsonResult fail(Integer errCode, String msg) {
+    public static String fail(Integer errCode, String msg) {
         return build(false, errCode, msg, null);
     }
 
-    public static JsonResult ok(String msg, Object detail) {
+    public static String ok(String msg, Object detail) {
         return build(true, null, msg, detail);
     }
 
-    public static JsonResult ok(Object detail) {
+    public static String ok(Object detail) {
         return build(true, null, null, detail);
     }
 
-    public static JsonResult sysErr(String msg){
+    public static String sysErr(String msg){
        return fail(500,msg);
     }
 
-    public static JsonResult paramErr(String msg){
+    public static String paramErr(String msg){
         return fail(400,msg);
     }
 
-    public static JsonResult verifyErr(String msg){
+    public static String verifyErr(String msg){
         return fail(401,msg);
     }
+
 
     public static void main(String[] args) {
         System.out.println(JSON.toJSONString(JsonResult.sysErr("xx")));

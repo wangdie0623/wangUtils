@@ -10,7 +10,7 @@ import java.util.List;
 //基础容器
 @Getter
 @Setter
-public class BaseStore {
+public class BaseStore implements IStore{
     private Integer maxSize;
     private List<IThing> things;
 
@@ -26,7 +26,7 @@ public class BaseStore {
      * 使用背包中指定物品
      * @param thingIndex
      */
-    public void useThing(int thingIndex, RoleFullDataBean ... dataBeans){
+    public void beUseThing(int thingIndex, RoleFullDataBean ... dataBeans){
         if (thingIndex<0||things==null||things.isEmpty()
                 ||thingIndex>=things.size()||dataBeans==null||dataBeans.length==0){
             return;

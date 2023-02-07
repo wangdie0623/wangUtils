@@ -2,12 +2,15 @@ package cn.wang.custom.web.api.aspects;
 
 
 import cn.wang.custom.utils.BusinessIdUtils;
+import cn.wang.custom.web.api.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -18,15 +21,15 @@ import java.util.Arrays;
 /**
  * Http 请求通用日志切面
  *
- * @author 王叠 2019-05-05 16:51
  */
 @Slf4j
 @Aspect
 @Component
 public class WebLogAspect {
+    @Autowired
+    private RedisUtil redisUtil;
 
-
-    @Pointcut("execution(public * cn.wd.microservice.controller.*.*(..))")
+    @Pointcut("execution(public * cn.wang.custom.web.api.controller.*.*(..))")
     public void webLog() {
     }
 
@@ -39,6 +42,13 @@ public class WebLogAspect {
         if (attributes==null){
             log.warn("获取请求上下文属性异常");
             return;
+        }
+        String customToken = attributes.getRequest().getHeader("customToken");
+        if (StringUtils.isNotBlank(customToken)){
+            String val = redisUtil.get(customToken);
+            if (StringUtils.isNotBlank(val)){
+                redisUtil.put(customToken,val);
+            }
         }
         HttpServletRequest request = attributes.getRequest();
          //记录下请求内容URL请求地址 H_M请求方法 IP请求来源IP C_M执行方法 ARGS执行方法入参

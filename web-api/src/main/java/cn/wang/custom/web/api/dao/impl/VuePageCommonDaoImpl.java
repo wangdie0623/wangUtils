@@ -6,11 +6,10 @@ import cn.wang.custom.web.api.dao.IVuePageCommonDao;
 import com.alibaba.druid.support.logging.Log;
 import com.alibaba.druid.support.logging.LogFactory;
 import com.alibaba.fastjson.JSON;
-import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.hibernate.query.internal.NativeQueryImpl;
 import org.hibernate.transform.Transformers;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
@@ -23,10 +22,8 @@ import java.util.Map;
  */
 @Primary
 @Repository
-public class VuePageCommonDaoImpl implements IVuePageCommonDao {
+public class VuePageCommonDaoImpl extends CommonDaoImpl implements IVuePageCommonDao {
     protected Log log = LogFactory.getLog(getClass());
-    @Autowired
-    private SessionFactory sessionFactory;
 
     public VuePageResult queryPage(String hql, Object[] args, Integer pageNum, Integer pageSize) {
         Session session = getSession();
@@ -34,17 +31,6 @@ public class VuePageCommonDaoImpl implements IVuePageCommonDao {
         return query(query, hql, args, pageNum, pageSize, false);
     }
 
-    @Override
-    public VuePageResult queryPage(String hql, Object[] args, Integer pageNum, Integer pageSize, String orderBy, boolean isDesc) {
-        Session session = getSession();
-        Query query;
-        if (orderBy == null || orderBy.isEmpty()) {
-            query = session.createQuery(hql);
-        } else {
-            query = session.createQuery(hql + " order by " + orderBy + " " + (isDesc ? "desc" : "asc"));
-        }
-        return query(query, hql, args, pageNum, pageSize, false);
-    }
 
     @Override
     public VuePageResult querySqlPage(String sql, Object[] args, Integer pageNum, Integer pageSize) {
@@ -53,42 +39,17 @@ public class VuePageCommonDaoImpl implements IVuePageCommonDao {
         return query(query, sql, args, pageNum, pageSize, true);
     }
 
-    @Override
-    public VuePageResult querySqlPage(String sql, Object[] args, Integer pageNum, Integer pageSize, String orderBy, boolean isDesc) {
-        Session session = getSession();
-        Query query;
-        if (orderBy == null || orderBy.isEmpty()) {
-            query = session.createSQLQuery(sql);
-        } else {
-            query = session.createSQLQuery(sql + " order by " + orderBy + " " + (isDesc ? "desc" : "asc"));
-        }
-        return query(query, sql, args, pageNum, pageSize, true);
-    }
 
     @Override
     public VuePageResult querySqlPage(String sql, Object[] args, Integer pageNum, Integer pageSize, boolean isMap) {
         Session session = getSession();
         Query query = session.createSQLQuery(sql);
         if (isMap) {
-            query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+            query.unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         }
         return query(query, sql, args, pageNum, pageSize, true);
     }
 
-    @Override
-    public VuePageResult querySqlPage(String sql, Object[] args, Integer pageNum, Integer pageSize, String orderBy, boolean isDesc, boolean isMap) {
-        Session session = getSession();
-        Query query;
-        if (orderBy == null || orderBy.isEmpty()) {
-            query = session.createSQLQuery(sql);
-        } else {
-            query = session.createSQLQuery(sql + " order by " + orderBy + " " + (isDesc ? "desc" : "asc"));
-        }
-        if (isMap) {
-            query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
-        }
-        return query(query, sql, args, pageNum, pageSize, true);
-    }
 
     @Override
     public VuePageResult querySqlPage(String sql, Object[] args, Integer pageNum, Integer pageSize, Class clazz) {
@@ -105,7 +66,7 @@ public class VuePageCommonDaoImpl implements IVuePageCommonDao {
     public VuePageResult querySqlPage(String sql, Map<String, Object> args, Integer pageNum, Integer pageSize, Class clazz) {
         Session session = getSession();
         Query query = session.createSQLQuery(sql);
-        query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+        query.unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         VuePageResult page = query(query, sql, args, pageNum, pageSize, true);
         if (page == null || page.getList() == null || page.getList().isEmpty()) {
             return page;
@@ -118,11 +79,11 @@ public class VuePageCommonDaoImpl implements IVuePageCommonDao {
     private VuePageResult query(Query listQuery, String patternSql, Object argsOrMap, Integer pageNum, Integer pageSize, boolean isSql) {
         listQuery.setFirstResult((pageNum - 1) * pageSize);
         listQuery.setMaxResults(pageSize);
-        if (argsOrMap!=null) {
+        if (argsOrMap != null) {
             if (argsOrMap instanceof Map) {
-                setParams(listQuery,(Map<String, Object>) argsOrMap);
-            }else {
-                setParams(listQuery,(Object[]) argsOrMap);
+                setParams(listQuery, (Map<String, Object>) argsOrMap);
+            } else {
+                setParams(listQuery, (Object[]) argsOrMap);
             }
         }
         List list = listQuery.list();
@@ -144,15 +105,6 @@ public class VuePageCommonDaoImpl implements IVuePageCommonDao {
 
 
     /**
-     * 得到数据库会话
-     *
-     * @return 会话对象
-     */
-    protected Session getSession() {
-        return sessionFactory.getCurrentSession();
-    }
-
-    /**
      * 配置查询条件
      *
      * @param query 待配置query对象
@@ -170,13 +122,14 @@ public class VuePageCommonDaoImpl implements IVuePageCommonDao {
             query.setParameter(i, args[i]);
         }
     }
+
     /**
      * 配置查询条件
      *
      * @param query 待配置query对象
      * @param args  待配置入参对象
      */
-    protected void setParams(Query query, Map<String,Object> args) {
+    protected void setParams(Query query, Map<String, Object> args) {
         if (query == null) {
             log.warn("vue setParams查询对象为空");
             return;
@@ -188,9 +141,9 @@ public class VuePageCommonDaoImpl implements IVuePageCommonDao {
             String name = entry.getKey();
             Object value = entry.getValue();
             if (value instanceof Collection) {
-                query.setParameterList(name,(Collection)value);
-            }else {
-                query.setParameter(name,value);
+                query.setParameterList(name, (Collection) value);
+            } else {
+                query.setParameter(name, value);
             }
         }
     }
@@ -199,35 +152,37 @@ public class VuePageCommonDaoImpl implements IVuePageCommonDao {
      * 得到当前hql总记录条数
      *
      * @param selectHql 查询hql
-     * @param args 条件参数
+     * @param args      条件参数
      * @return 总记录数
      */
     protected Long getTotal(String selectHql, Object args) {
-        String hqlCount = "select count(1) " + selectHql;
+        String hqlCount = "select count(id) " + selectHql;
         Query queryCount = getSession().createQuery(hqlCount);
-        return executeTotal(queryCount,args);
+        return executeTotal(queryCount, args);
     }
 
     /**
      * sql总记录条数
+     *
      * @param selectSql 查询hql
      * @param args
      * @return
      */
     protected Long getSqlTotal(String selectSql, Object args) {
-        String sqlCount = "select count(1) from (" + selectSql + ") t";
+        String sqlCount = "select count(id) from (" + selectSql + ") t";
         Query queryCount = getSession().createSQLQuery(sqlCount);
-        return executeTotal(queryCount,args);
+        return executeTotal(queryCount, args);
     }
 
     /**
      * 执行总记录数计算
+     *
      * @param queryCount sql或hql
      * @param args
      * @return
      */
-    protected Long executeTotal(Query queryCount,Object args){
-        if (args!=null) {
+    protected Long executeTotal(Query queryCount, Object args) {
+        if (args != null) {
             if (args instanceof Map) {
                 setParams(queryCount, (Map<String, Object>) args);
             } else {

@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * @author 王叠 2019-05-05 15:32
- */
 @Slf4j
 @RestController
 public class TestController {

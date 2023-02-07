@@ -3,7 +3,7 @@ package cn.wang.custom.web.api.beans.things;
 import cn.wang.custom.web.api.beans.RoleFullDataBean;
 
 /**
- * 装备
+ * 装备方法集合
  */
 public interface IEquipment {
     /**

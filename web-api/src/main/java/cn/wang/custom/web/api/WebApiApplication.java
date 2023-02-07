@@ -6,6 +6,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
@@ -15,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 //加载springConfig
 @EnableSpringConfigured
 //exclude-排除指定自动配置
-@SpringBootApplication(exclude = {JacksonAutoConfiguration.class})
+@SpringBootApplication(exclude = {JacksonAutoConfiguration.class,RedisAutoConfiguration.class})
 //开启事务管理
 @EnableTransactionManagement
 //指定hibernate 数据库对象管理范围
@@ -26,7 +28,6 @@ public class WebApiApplication implements ApplicationRunner {
 
     public static void main(String[] args) {
         SpringApplication.run(WebApiApplication.class, args);
-        System.out.println("老王");
     }
 
     @Override

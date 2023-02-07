@@ -2,17 +2,18 @@ package cn.wang.custom.web.api.beans;
 
 import cn.wang.custom.web.api.beans.things.BaseStore;
 import cn.wang.custom.web.api.beans.things.Equipment;
-import cn.wang.custom.web.api.beans.things.IThing;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 包含一个角色全部属性
+ * 角色全部数据对象
  */
 @Getter
 @Setter
 public class RoleFullDataBean {
     private String name;//主要描述名
+    private String accountId;//账号唯一标识
+    private String roleId;//角色唯一标识
     private int hp;//生命
     private int atk;//伤害力
     private int def;//防伤害力

@@ -8,26 +8,24 @@ spring:
     active: '@env@'
   # jpa 配置
   jpa:
-     # sql日志是否打印
-     show-sql: true
-     hibernate:
-              # 表数据执行方式 create-无新建，表清空 create-drop-继承create，结束删除表 update-无新建，不同就更新  validate-启动校验，不同报错
-              ddl-auto: 'update'
+    # sql日志是否打印
+    show-sql: '@show.sql@'
+    hibernate:
+      # 表数据执行方式 create-无新建，表清空 create-drop-继承create，结束删除表 update-无新建，不同就更新  validate-启动校验，不同报错
+      ddl-auto: 'update'
 
-     #sql 本地化实现类
-     database-platform: org.hibernate.dialect.SQLiteDialect
-     properties:
-       hibernate:
-         current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
-  #  挂载端口
-  port: '@config.port@'
-  #  请求服务配置
-  servlet:
-    #    请求服务根路径配置 默认空
-    context-path: /${spring.application.name}
+    #sql 本地化实现类
+    database-platform: org.hibernate.dialect.SQLiteDialect
+    properties:
+      hibernate:
+        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
   web:
     resources:
       static-locations: classpath:/views/
+  redis:
+    sentinel:
+      password:
+
 # 日志配置
 logging:
   level:
@@ -36,3 +34,10 @@ logging:
   file:
     # 日志文件路径
     path: @logPath@
+server:
+  #  挂载端口
+  port: '@config.port@'
+  #  请求服务配置
+  servlet:
+    #    请求服务根路径配置 默认空
+    context-path: /${spring.application.name}
