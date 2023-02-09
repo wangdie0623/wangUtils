@@ -283,4 +283,31 @@ public class WDateUtils {
         return date1.after(date2);
     }
 
+    /**
+     * 得到指定日期前N天日期
+     * @param source 指定日期
+     * @param days N天
+     * @return
+     */
+    public static Date beforeNDays(Date source,int days){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(source);
+        calendar.add(Calendar.DAY_OF_YEAR,-days);
+        return calendar.getTime();
+    }
+
+    /**
+     * 得到指定日期后N天日期
+     * @param source 指定日期
+     * @param days N天
+     * @return
+     */
+    public static Date afterNDays(Date source,int days){
+        return beforeNDays(source,-days);
+    }
+
+    public static void main(String[] args) {
+        Date date = afterNDays(new Date(), 2);
+        System.out.println(getStr(date));
+    }
 }
