@@ -1,6 +1,6 @@
 package cn.wang.custom.web.api.resolver;
 
-import cn.wang.custom.web.api.dto.DtoValid;
+import cn.wang.custom.web.api.dtos.DtoValid;
 import com.alibaba.fastjson.JSON;
 import com.google.common.io.ByteStreams;
 import org.springframework.core.MethodParameter;
@@ -25,14 +25,14 @@ import java.util.Map;
 public class DtoResolver implements HandlerMethodArgumentResolver {
 
     @Override
-    public boolean supportsParameter(MethodParameter parameter) {
+    public boolean supportsParameter(MethodParameter parameter) {//判断是否执行解析
         return DtoValid.class.isAssignableFrom(parameter.getParameterType());
     }
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
                                   NativeWebRequest webRequest,
-                                  WebDataBinderFactory binderFactory) throws Exception {
+                                  WebDataBinderFactory binderFactory) throws Exception {//执行解析核心代码
         Object obj = getConvertObj(webRequest,parameter);
         if (binderFactory != null && obj != null) {
             DataBinder dataBinder = binderFactory.createBinder(webRequest, obj, parameter.getParameterName());

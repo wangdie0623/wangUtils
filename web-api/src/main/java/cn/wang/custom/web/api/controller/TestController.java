@@ -3,7 +3,7 @@ package cn.wang.custom.web.api.controller;
 
 import cn.wang.custom.utils.BusinessIdUtils;
 import cn.wang.custom.web.api.beans.JsonResult;
-import cn.wang.custom.web.api.dto.DtoMsgReq;
+import cn.wang.custom.web.api.dtos.DtoMsgReq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

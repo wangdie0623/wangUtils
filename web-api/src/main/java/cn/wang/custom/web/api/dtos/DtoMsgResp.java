@@ -1,18 +1,19 @@
-package cn.wang.custom.web.api.dto;
+package cn.wang.custom.web.api.dtos;
 
 
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * 消息请求对象
+ * 消息响应对象
  */
 @Getter
 @Setter
-public class DtoMsgReq implements DtoValid{
+public class DtoMsgResp {
     /**
      * 来源标识
      */
@@ -31,4 +32,10 @@ public class DtoMsgReq implements DtoValid{
     @NotEmpty(message = "消息内容不能为空")
     @Size(max = 400, message = "消息内容最大长度不能大400")
     private String content;
+
+    /**
+     * 内容位置标识
+     */
+    @NotNull(message = "内容位置标识不能为空")
+    private Long lastIndex;
 }

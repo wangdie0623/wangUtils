@@ -1,14 +1,18 @@
 package cn.wang.custom.utils.clazz;
 
 import cn.wang.custom.utils.WDateUtils;
+import com.alibaba.fastjson.annotation.JSONField;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class WClassUtils {
     /**
@@ -20,18 +24,22 @@ public class WClassUtils {
     public static void printClassSetInfo(Class clazz) throws IntrospectionException {
         BeanInfo beanInfo = Introspector.getBeanInfo(clazz);
         StringBuilder builder = new StringBuilder();
+        int i=1;
         for (PropertyDescriptor item : beanInfo.getPropertyDescriptors()) {
             try {
                 Method method = item.getWriteMethod();
                 String methodName = method.getName();
                 String filedName = item.getName();
-                builder.append("obj." + methodName + "(" + filedName + ");\r\n");
+                builder.append("obj." + methodName + "(\"" + i + "\");\r\n");
+                i++;
             } catch (Exception e) {
 
             }
         }
         System.out.println(builder);
     }
+
+
 
     /**
      * get方法打印样例
@@ -84,6 +92,12 @@ public class WClassUtils {
         return null;
     }
 
+    /**
+     * 对象初始化设置值java code
+     * @param clazz
+     * @param objName
+     * @return
+     */
     public static String getObjInitContent(Class clazz,String objName){
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(clazz);
@@ -121,8 +135,27 @@ public class WClassUtils {
         return null;
     }
 
-    public static void main(String[] args) {
-        String obj = getObjInitContent(TAscGlFinacialStockRptDTO.class, "obj");
-        System.out.println(obj);
+    /**
+     * 比对来源注解值集对照对象class，是否有缺失
+     * @param source 来源注解值集
+     * @param objClazz 对照对象
+     * @return
+     */
+    public static List<String> alignPro(List<String> source,Class objClazz){
+        List<String> result=new ArrayList<>();
+        for (Field itemF : objClazz.getDeclaredFields()) {
+            JSONField annotation = itemF.getAnnotation(JSONField.class);
+            if (annotation!=null){
+                String name = annotation.name();
+                if (!source.contains(name)) {
+                   result.add(name);
+                }else{
+                    source.remove(name);
+                }
+            }
+        }
+        return result;
     }
+
+
 }
