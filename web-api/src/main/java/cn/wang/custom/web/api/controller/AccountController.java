@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -65,7 +66,7 @@ public class AccountController {
      */
     @PostMapping("register")
     @ResponseBody
-    public String register(String name, String pwd) {
+    public String register(String name, String pwd,String phone) {
         try {
             if (userService.isRepeatName(name)) {
                 return JsonResult.verifyErr("用户名重复");
@@ -73,6 +74,9 @@ public class AccountController {
             WUser user = new WUser();
             user.setName(name);
             user.setPwd(WStringUtils.getMd5(pwd));
+            if (ObjectUtils.isEmpty(phone)){
+                user.setPhone(name);
+            }
             userService.save(user);
             return JsonResult.ok(null);
         } catch (WRunTimeException e) {

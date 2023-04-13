@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <!--    奇怪的必须前置-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>用户登录</title>
+    <title>新用户注册</title>
     <script>
         let node = document.createElement("script");
-        node.src='js/custom-loader.js?t='+new Date().getTime();
+        node.src = 'js/custom-loader.js?t=' + new Date().getTime();
         document.head.appendChild(node);
-        node.onload=function (){
+        node.onload = function () {
             loaderCommonJs();
             loaderCommonCss();
         }
@@ -18,57 +18,66 @@
         .selector-for-some-widget {
             box-sizing: content-box;
         }
+
         input::-webkit-input-placeholder {
             color: red !important;
             text-align: center;
         }
     </style>
 </head>
-<body id="app">
+<body>
+
 <div class="container-fluid">
-    <h1 class="text-center">用户登录</h1>
+    <h1 class="text-center">新用户注册</h1>
     <!--    表格 row代表行 col 代表列 单纯的col会自动等分，col-x会在等分后占有x份空间。最多12等分-->
     <div class="row justify-content-center list-group-horizontal g-3" id="defaultForm">
         <div class="col-12">
             <div class="input-group">
                 <i class="input-group-text bi-person bg-light text-dark"></i>
-                <input class="form-control" type="text" placeholder="请输入用户名" name="accountName">
+                <input class="form-control w-input-r" type="text" placeholder="请输入用户名" name="accountName">
             </div>
         </div>
         <div class="col-12">
             <div class="input-group">
                 <i class="input-group-text bi-lock bg-light text-dark"></i>
-                <input class="form-control" type="text" placeholder="请输入密码" name="pwd">
+                <input class="form-control" type="password" placeholder="请输入密码" name="pwd1">
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="input-group">
+                <i class="input-group-text bi-lock bg-light text-dark"></i>
+                <input class="form-control" type="password" placeholder="请再次输入密码" name="pwd2">
             </div>
         </div>
         <div class="col-12">
             <div class="form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" type="checkbox" id="isCheck">
-                    我已阅读并同意<span class="w-hand text-primary">《xx协议》</span>
+                    我已阅读并同意<span class="w-hand text-primary">《xx注册协议》</span>
                 </label>
             </div>
         </div>
         <div class="col-12">
-            <input type="button" class="btn btn-primary form-control" value="登录" onclick="nowPageLogin()">
+            <input type="button" class="btn btn-primary form-control" value="注册" onclick="nowPageRegister()">
         </div>
         <div class="col-12">
-            <a href="register.html" class="text-center form-control-plaintext" style="text-decoration: none">新用户注册</a>
+            <a href="index.html" class="text-center form-control-plaintext w-none-d">已有账号</a>
         </div>
     </div>
 </div>
 <script>
     /**
-     * 当前页面登录
+     * 当前页面注册
      */
-    function nowPageLogin() {
+    function nowPageRegister() {
         if (!$("#isCheck").is(":checked")) {
             errorTip("请阅读协议!");
             return;
         }
         let accountName = $("#defaultForm").find("input[name='accountName']").val();
-        let pwd = $("#defaultForm").find("input[name='pwd']").val();
-        login(accountName, pwd);
+        let pwd1 = $("#defaultForm").find("input[name='pwd1']").val();
+        let pwd2 = $("#defaultForm").find("input[name='pwd2']").val();
+        register(accountName, pwd1, pwd2);
     }
 </script>
 </body>

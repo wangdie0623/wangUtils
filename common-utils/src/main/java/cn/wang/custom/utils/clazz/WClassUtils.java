@@ -102,6 +102,7 @@ public class WClassUtils {
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(clazz);
             StringBuilder builder = new StringBuilder();
+            builder.append(clazz.getSimpleName()+" "+objName+" = new "+clazz.getSimpleName()+"();\r\n");
             int index=0;
             for (PropertyDescriptor item : beanInfo.getPropertyDescriptors()) {
                 try {
@@ -120,7 +121,7 @@ public class WClassUtils {
                         builder.append(objName+"."+writeName+"("+val+"l);\r\n");
                     }else if(type.equals(String.class)){
                         String val=String.valueOf(index);
-                        builder.append(objName+"."+writeName+"(\""+val+"\");\r\n");
+                        builder.append(objName+"."+writeName+"(\"S"+val+"\");\r\n");
                     }else{
                         String val=String.valueOf(index);
                         builder.append(objName+"."+writeName+"("+val+");\r\n");
@@ -156,6 +157,5 @@ public class WClassUtils {
         }
         return result;
     }
-
 
 }
