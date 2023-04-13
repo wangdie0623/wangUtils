@@ -45,7 +45,7 @@ function login(accountName, pwd) {
     }
     let params={
         name:accountName,
-        pwd:pwd
+        pwd:$.md5(pwd)
     }
     reqPost(API_PATHS.account.login,params).then(function (r){
        if (r.success){

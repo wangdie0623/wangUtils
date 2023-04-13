@@ -39,6 +39,7 @@ public class AccountController {
             if (StringUtils.isBlank(name)||StringUtils.isBlank(pwd)){
                 return JsonResult.verifyErr("用户名或密码不能为空");
             }
+            pwd.toLowerCase();
             WUser user = userService.login(name, pwd);
             if (user==null){
                 return JsonResult.verifyErr("用户名或密码不正确");

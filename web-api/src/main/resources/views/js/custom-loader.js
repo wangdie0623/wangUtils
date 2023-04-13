@@ -12,6 +12,7 @@ function loaderCommonJs(){
         'js/http-util.js'+"?v="+CUSTOM_VERSION,
         'js/custom-tip.js'+"?v="+CUSTOM_VERSION,
         'js/account-common.js'+"?v="+CUSTOM_VERSION,
+        'js/md5.js'+"?v="+CUSTOM_VERSION,
     ];
     if (CUSTOM_ENV=="pro"){
         jsList.push('https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js');
