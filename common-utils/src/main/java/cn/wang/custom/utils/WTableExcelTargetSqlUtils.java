@@ -41,7 +41,9 @@ public class WTableExcelTargetSqlUtils {
             .put(COL_TYPE_KEY+"-文本描述-中"," VARCHAR2(128)")
             .put(COL_TYPE_KEY+"-文本描述-长"," VARCHAR2(512)")
             .put(COL_TYPE_KEY+"-文本描述-超长"," VARCHAR2(2048)")
+            .put(COL_TYPE_KEY+"-文本描述"," VARCHAR2(512)")
             .put(COL_TYPE_KEY+"-大文本描述"," CLOB")
+            .put(COL_TYPE_KEY+"-值集"," VARCHAR2(8)")
             .put(COL_TYPE_KEY+"-数量"," NUMBER(16,6)")
             .put(COL_TYPE_KEY+"-尺寸"," NUMBER(8,2)")
             .put(COL_TYPE_KEY+"-件数"," NUMBER(9)")
@@ -82,7 +84,7 @@ public class WTableExcelTargetSqlUtils {
         List<Map<Integer, String>> mapList = WExcelReadUtils.getExcelRowMapList(data,file.getName(), 0);
         Map<String, Integer> keyMap = DEFAULT_KEY_MAP;
         Map<String, String> valueDescMap = DEFAULT_VALUE_DESC_MAP;
-        String sql = getCreateTableSql("cw.T_ASC_ACCRUAL","财务计提表",keyMap, valueDescMap, mapList, 1);
+        String sql = getCreateTableSql("cw.T_TXC_BIZ_TAXER","纳税人信息",keyMap, valueDescMap, mapList, 1);
         System.out.println(sql);
     }
 

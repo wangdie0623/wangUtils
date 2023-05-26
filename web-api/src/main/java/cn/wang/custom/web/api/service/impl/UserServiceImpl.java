@@ -2,7 +2,7 @@ package cn.wang.custom.web.api.service.impl;
 
 import cn.wang.custom.utils.constant.WConstants;
 import cn.wang.custom.web.api.dao.IWUserDao;
-import cn.wang.custom.web.api.entity.WUser;
+import cn.wang.custom.web.api.entity.WAccount;
 import cn.wang.custom.web.api.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     @Transactional//有更新操作才需要事务
-    public void save(WUser user) {
+    public void save(WAccount user) {
         if (user.getPhone() == null) {
             user.setPhone(WConstants.WSqlDefaultVal.STR);
         }
@@ -24,7 +24,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public WUser queryById(Long id) {
+    public WAccount queryById(Long id) {
         return userDao.selectById(id);
     }
 
@@ -35,8 +35,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public WUser login(String name, String pwd) {
-        WUser user = userDao.selectByName(name);
+    public WAccount login(String name, String pwd) {
+        WAccount user = userDao.selectByName(name);
         if (user != null) {
             return pwd.equalsIgnoreCase(user.getPwd()) ? user : null;
         }

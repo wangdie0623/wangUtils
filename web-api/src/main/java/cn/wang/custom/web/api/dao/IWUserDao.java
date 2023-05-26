@@ -1,6 +1,6 @@
 package cn.wang.custom.web.api.dao;
 
-import cn.wang.custom.web.api.entity.WUser;
+import cn.wang.custom.web.api.entity.WAccount;
 
 public interface IWUserDao extends ICommonDao {
     /**
@@ -8,7 +8,7 @@ public interface IWUserDao extends ICommonDao {
      * @param id
      * @return
      */
-    WUser selectById(Long id);
+    WAccount selectById(Long id);
 
     /**
      * 统计相同name值数量
@@ -22,12 +22,12 @@ public interface IWUserDao extends ICommonDao {
      * @param name
      * @return
      */
-    WUser selectByName(String name);
+    WAccount selectByName(String name);
 
     /**
      * 通过手机号查询user
      * @param phone
      * @return
      */
-    WUser selectByPhone(String phone);
+    WAccount selectByPhone(String phone);
 }

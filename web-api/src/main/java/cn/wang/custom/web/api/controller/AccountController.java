@@ -4,8 +4,8 @@ import cn.wang.custom.utils.WStringUtils;
 import cn.wang.custom.utils.exception.WRunTimeException;
 import cn.wang.custom.web.api.beans.JsonResult;
 import cn.wang.custom.web.api.beans.TokenInfo;
+import cn.wang.custom.web.api.entity.WAccount;
 import cn.wang.custom.web.api.utils.RedisUtil;
-import cn.wang.custom.web.api.entity.WUser;
 import cn.wang.custom.web.api.service.IUserService;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +40,7 @@ public class AccountController {
                 return JsonResult.verifyErr("用户名或密码不能为空");
             }
             pwd.toLowerCase();
-            WUser user = userService.login(name, pwd);
+            WAccount user = userService.login(name, pwd);
             if (user==null){
                 return JsonResult.verifyErr("用户名或密码不正确");
             }
@@ -72,7 +72,7 @@ public class AccountController {
             if (userService.isRepeatName(name)) {
                 return JsonResult.verifyErr("用户名重复");
             }
-            WUser user = new WUser();
+            WAccount user = new WAccount();
             user.setName(name);
             user.setPwd(WStringUtils.getMd5(pwd));
             if (ObjectUtils.isEmpty(phone)){

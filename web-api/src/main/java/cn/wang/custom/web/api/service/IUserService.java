@@ -1,13 +1,13 @@
 package cn.wang.custom.web.api.service;
 
 
-import cn.wang.custom.web.api.entity.WUser;
+import cn.wang.custom.web.api.entity.WAccount;
 
 public interface IUserService {
 
-    void save(WUser user);
+    void save(WAccount user);
 
-    WUser queryById(Long id);
+    WAccount queryById(Long id);
 
     /**
      * 判断用户名是否重复
@@ -22,5 +22,5 @@ public interface IUserService {
      * @param pwd
      * @return
      */
-    WUser login(String name, String pwd);
+    WAccount login(String name, String pwd);
 }
