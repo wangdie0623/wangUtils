@@ -1,5 +1,6 @@
 package cn.wang.custom.web.api.dao.impl;
 
+import cn.wang.custom.utils.constant.WConstants;
 import cn.wang.custom.web.api.dao.IWUserDao;
 import cn.wang.custom.web.api.entity.WAccount;
 import org.hibernate.query.Query;
@@ -62,5 +63,17 @@ public class WUserDaoImpl extends CommonDaoImpl implements IWUserDao {
             return null;
         }
         return ((WAccount) o);
+    }
+
+    @Override
+    public String selectMaxEmptyPhone() {
+        String hql="select max(phone) from WAccount where phone like ?0";
+        Query query = getHqlQuery(hql);
+        setArgs(query, WConstants.WSqlDefaultVal.EMPTY_PHONE_PREFIX+"%");
+        Object o = query.uniqueResult();
+        if (o==null){
+            return null;
+        }
+        return o.toString();
     }
 }

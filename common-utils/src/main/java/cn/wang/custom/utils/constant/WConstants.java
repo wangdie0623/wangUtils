@@ -9,5 +9,7 @@ public interface WConstants {
      */
     interface WSqlDefaultVal {
         String STR = "-";//数据库空字符串默认值
+        String DEFAULT_USER = "SYSTEM";//数据库默认创建人
+        String EMPTY_PHONE_PREFIX="PHONE";//数据库空电话前缀
     }
 }

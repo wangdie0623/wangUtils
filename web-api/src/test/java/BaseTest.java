@@ -1,4 +1,5 @@
 import cn.wang.custom.web.api.WebApiApplication;
+import cn.wang.custom.web.api.dao.IWUserDao;
 import cn.wang.custom.web.api.utils.RedisUtil;
 import cn.wang.custom.web.api.service.IUserService;
 import org.junit.jupiter.api.Test;
@@ -14,16 +15,14 @@ public class BaseTest {
     @Autowired
     private IUserService service;
     @Autowired
+    private IWUserDao dao;
+    @Autowired
     private RedisUtil util;
 
     @Test
     public void defaultTest() {
-        util.put("xx", "3333");
-        System.out.println(util.get("xx"));
-        System.out.println("-----------");
-        util.removeKey("xx");
-        util.setInvalidTimeMinute("xx",1l);
-        System.out.println(util.get("xx"));
+        String phone = dao.selectMaxEmptyPhone();
+        System.out.println(phone);
     }
 
 }

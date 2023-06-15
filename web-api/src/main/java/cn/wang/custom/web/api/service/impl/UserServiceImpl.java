@@ -4,21 +4,32 @@ import cn.wang.custom.utils.constant.WConstants;
 import cn.wang.custom.web.api.dao.IWUserDao;
 import cn.wang.custom.web.api.entity.WAccount;
 import cn.wang.custom.web.api.service.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 
 @Service
 public class UserServiceImpl implements IUserService {
-    @Autowired
-    private IWUserDao userDao;
+    private final IWUserDao userDao;
+
+    public UserServiceImpl(IWUserDao userDao) {
+        this.userDao = userDao;
+    }
 
     @Override
     @Transactional//有更新操作才需要事务
     public void save(WAccount user) {
-        if (user.getPhone() == null) {
-            user.setPhone(WConstants.WSqlDefaultVal.STR);
+        if (ObjectUtils.isEmpty(user.getPhone())){
+            String maxEmptyPhone = userDao.selectMaxEmptyPhone();
+            if (maxEmptyPhone==null){
+                user.setPhone(WConstants.WSqlDefaultVal.EMPTY_PHONE_PREFIX+"000001");
+            }else{
+                String num=maxEmptyPhone.substring(5);
+                String newEmptyPhone= WConstants.WSqlDefaultVal.EMPTY_PHONE_PREFIX+(Integer.valueOf(num)+1);
+                user.setPhone(newEmptyPhone);
+            }
         }
         userDao.insert(user);
     }

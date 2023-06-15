@@ -1,5 +1,5 @@
 /common-utils/target/
-/swing-ui/target/
+/web-api/target/
 .idea
 *.iml
 *.log

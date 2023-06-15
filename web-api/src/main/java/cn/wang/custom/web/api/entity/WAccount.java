@@ -1,6 +1,7 @@
 package cn.wang.custom.web.api.entity;
 
 
+import cn.wang.custom.utils.constant.WConstants;
 import lombok.Getter;
 import lombok.Setter;
 
