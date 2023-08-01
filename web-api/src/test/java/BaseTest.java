@@ -1,7 +1,5 @@
 import cn.wang.custom.web.api.WebApiApplication;
-import cn.wang.custom.web.api.utils.RedisUtil;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -10,17 +8,9 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("local")
 public class BaseTest {
 
-    @Autowired
-    private IUserService service;
-    @Autowired
-    private IWUserDao dao;
-    @Autowired
-    private RedisUtil util;
-
     @Test
     public void defaultTest() {
-        String phone = dao.selectMaxEmptyPhone();
-        System.out.println(phone);
+
     }
 
 }

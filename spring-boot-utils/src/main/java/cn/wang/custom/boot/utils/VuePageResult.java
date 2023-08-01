@@ -1,4 +1,4 @@
-package cn.wang.custom.user.module.beans;
+package cn.wang.custom.boot.utils;
 
 import java.util.Collections;
 import java.util.List;

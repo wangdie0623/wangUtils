@@ -1,6 +1,8 @@
+import cn.wang.custom.boot.dao.IVuePageCommonDao;
+import cn.wang.custom.boot.utils.RedisUtil;
+import cn.wang.custom.boot.utils.VuePageResult;
 import cn.wang.custom.user.module.UserModuleApplication;
 import cn.wang.custom.user.module.dao.IWUserDao;
-import cn.wang.custom.user.module.utils.RedisUtil;
 import cn.wang.custom.user.module.service.IUserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +19,12 @@ public class BaseTest {
     @Autowired
     private IWUserDao dao;
     @Autowired
-    private RedisUtil util;
+    private IVuePageCommonDao vuePageCommonDao;
 
     @Test
     public void defaultTest() {
-        String phone = dao.selectMaxEmptyPhone();
-        System.out.println(phone);
+        VuePageResult vuePageResult = vuePageCommonDao.querySqlPage("select * from custom_account", null, 1, 10);
+        System.out.println(vuePageResult.getList());
     }
 
 }

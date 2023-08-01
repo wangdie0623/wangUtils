@@ -1,10 +1,8 @@
-package cn.wang.custom.user.module.dao.impl;
+package cn.wang.custom.boot.dao.impl;
 
-import cn.wang.custom.user.module.dao.ICommonDao;
+import cn.wang.custom.boot.dao.ICommonDao;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,7 +10,6 @@ import java.util.Collection;
 import java.util.Map;
 
 
-@Repository
 public class CommonDaoImpl implements ICommonDao {
     @PersistenceContext
     protected EntityManager entityManager;

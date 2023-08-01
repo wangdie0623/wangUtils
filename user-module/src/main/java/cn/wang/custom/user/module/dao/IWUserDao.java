@@ -1,5 +1,6 @@
 package cn.wang.custom.user.module.dao;
 
+import cn.wang.custom.boot.dao.ICommonDao;
 import cn.wang.custom.user.module.entity.WAccount;
 
 public interface IWUserDao extends ICommonDao {

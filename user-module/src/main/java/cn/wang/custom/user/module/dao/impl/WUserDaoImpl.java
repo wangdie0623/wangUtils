@@ -1,5 +1,6 @@
 package cn.wang.custom.user.module.dao.impl;
 
+import cn.wang.custom.boot.dao.impl.CommonDaoImpl;
 import cn.wang.custom.user.module.entity.WAccount;
 import cn.wang.custom.utils.constant.WConstants;
 import cn.wang.custom.user.module.dao.IWUserDao;

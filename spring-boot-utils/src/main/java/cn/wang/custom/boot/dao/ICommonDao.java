@@ -1,4 +1,4 @@
-package cn.wang.custom.web.api.dao;
+package cn.wang.custom.boot.dao;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;

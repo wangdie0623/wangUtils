@@ -1,4 +1,4 @@
-package cn.wang.custom.user.module.controller;
+package cn.wang.custom.web.api.controller;
 
 import cn.wang.custom.user.module.api.AccountApi;
 import lombok.extern.slf4j.Slf4j;

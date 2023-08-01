@@ -1,4 +1,4 @@
-package cn.wang.custom.web.api.config;
+package cn.wang.custom.user.module;
 
 import cn.wang.custom.boot.config.DataSourceProBean;
 import cn.wang.custom.boot.config.RedisProBean;
@@ -13,7 +13,7 @@ import org.springframework.util.ObjectUtils;
 @Configuration(proxyBeanMethods = false)
 @PropertySource("classpath:jdbc/${spring.profiles.active}.properties")
 @PropertySource("classpath:redis/${spring.profiles.active}.properties")
-public class CustomConfig {
+public class CustomUserModuleConfig {
     @Autowired
     private Environment env;
 

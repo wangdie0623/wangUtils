@@ -1,6 +1,7 @@
 package cn.wang.custom.web.api;
 
 import cn.wang.custom.boot.config.CustomAutoBootConfig;
+import cn.wang.custom.user.module.UserModuleAutoConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -18,9 +19,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication(exclude = {JacksonAutoConfiguration.class, RedisAutoConfiguration.class})
 //开启事务管理
 @EnableTransactionManagement
-//指定hibernate 数据库对象管理范围
-@EntityScan("cn.wang.custom.web.api.entity")
-@Import(CustomAutoBootConfig.class)
+//导入springboot通用配置
+@Import({CustomAutoBootConfig.class,UserModuleAutoConfig.class})
 public class WebApiApplication  implements ApplicationRunner {
     @Value("${spring.application.name}")
     private String name;

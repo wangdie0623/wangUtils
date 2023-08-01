@@ -1,2 +1,0 @@
-#多个类用逗号隔开
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=cn.wang.custom.user.module.UserModuleFactories

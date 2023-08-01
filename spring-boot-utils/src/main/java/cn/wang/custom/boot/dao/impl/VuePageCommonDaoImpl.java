@@ -1,8 +1,9 @@
-package cn.wang.custom.web.api.dao.impl;
+package cn.wang.custom.boot.dao.impl;
 
 
-import cn.wang.custom.web.api.beans.VuePageResult;
-import cn.wang.custom.web.api.dao.IVuePageCommonDao;
+
+import cn.wang.custom.boot.dao.IVuePageCommonDao;
+import cn.wang.custom.boot.utils.VuePageResult;
 import com.alibaba.druid.support.logging.Log;
 import com.alibaba.druid.support.logging.LogFactory;
 import com.alibaba.fastjson.JSON;
@@ -10,7 +11,6 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.hibernate.query.internal.NativeQueryImpl;
 import org.hibernate.transform.Transformers;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
@@ -20,8 +20,6 @@ import java.util.Map;
 /**
  * @author 王叠  2019-07-08 11:02
  */
-@Primary
-@Repository
 public class VuePageCommonDaoImpl extends CommonDaoImpl implements IVuePageCommonDao {
     protected Log log = LogFactory.getLog(getClass());
 

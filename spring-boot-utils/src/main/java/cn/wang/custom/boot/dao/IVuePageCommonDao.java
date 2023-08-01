@@ -1,7 +1,8 @@
-package cn.wang.custom.web.api.dao;
+package cn.wang.custom.boot.dao;
 
 
-import cn.wang.custom.web.api.beans.VuePageResult;
+
+import cn.wang.custom.boot.utils.VuePageResult;
 
 import java.util.Map;
 
