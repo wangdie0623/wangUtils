@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- 日志根目录-->
+    <springProperty scope="context" name="LOG_HOME" source="logging.file.path" defaultValue="/data/logs"/>
+
+    <!-- 日志级别 -->
+    <springProperty scope="context" name="LOG_ROOT_LEVEL" source="logging.level.root" defaultValue="DEBUG"/>
+
+    <!-- 日志文件名称-->
+    <springProperty scope="context" name="LOG_PREFIX" source="spring.application.name" defaultValue="logback" />
+
+    <!-- 日志文件编码-->
+    <property name="LOG_CHARSET" value="UTF-8" />
+
+    <!-- 日志文件存放目录-->
+    <property name="LOG_DIR" value="${LOG_HOME}/%d{yyyy-MM-dd}" />
+
+    <!--对日志进行格式化
+    %X MDC自定义变量
+    %d 时间
+    %le 日志等级
+    ${HOSTNAME} 取环境变量HOSTNAME 机器别名
+    %t 线程信息
+    %lo创建log对象时赋予的名字，一般为class名
+    %m 日志信息
+    %n 换行-->
+    <property name="LOG_MSG" value="[${HOSTNAME}] [%X{taskId}] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%le{5}]  [%t{10}] [%lo{36}] [%L]--> %m %n "/>
+
+    <!--文件大小，默认10MB-->
+    <property name="MAX_FILE_SIZE" value="50MB" />
+
+    <!-- 配置日志的保存时间 ，表示只保留最近 10 天的日志-->
+    <property name="MAX_HISTORY" value="10"/>
+
+    <!--定义日志输出 STDOUT-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 输出方式-->
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <!--输出内容表达式-->
+            <pattern>${LOG_MSG}</pattern>
+        </layout>
+    </appender>
+
+
+
+    <!-- 定义日志输出 FILE_ALL-->
+    <appender name="FILE_ALL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--日志文件完整地址表达式-->
+        <File>${LOG_DIR}/${LOG_PREFIX}_all.log</File>
+
+        <!-- 设置滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+
+            <!--新日志文件名表达式-->
+            <FileNamePattern>${LOG_DIR}/${LOG_PREFIX}_all%i.log</FileNamePattern>
+
+            <!-- 日志文件保存时间 单位天-->
+            <MaxHistory>${MAX_HISTORY}</MaxHistory>
+
+            <!--日志单个文件大小配置-->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!--日志单个文件最大值 单位MB-->
+                <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+
+        </rollingPolicy>
+
+        <!--输出内容配置-->
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <!--输出内容表达式-->
+            <pattern>${LOG_MSG}</pattern>
+        </layout>
+    </appender>
+
+    <!-- 定义日志输出 FILE_ERROR-->
+    <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--日志级别过滤配置-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!--日志级别名-->
+            <level>ERROR</level>
+            <!--级别名不匹配处理方式-->
+            <OnMismatch>DENY</OnMismatch>
+            <!--级别名匹配处理方式-->
+            <OnMatch>ACCEPT</OnMatch>
+        </filter>
+
+        <!--日志文件完整地址表达式-->
+        <File>${LOG_DIR}/${LOG_PREFIX}_err.log</File>
+
+        <!-- 设置滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+
+            <!--新日志文件名表达式-->
+            <FileNamePattern>${LOG_DIR}/${LOG_PREFIX}_err%i.log</FileNamePattern>
+
+            <!-- 日志文件保存时间 单位天-->
+            <MaxHistory>${MAX_HISTORY}</MaxHistory>
+
+            <!--日志单个文件大小配置-->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!--日志单个文件最大值 单位MB-->
+                <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+
+        </rollingPolicy>
+
+        <!--输出内容配置-->
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <!--输出内容表达式-->
+            <pattern>${LOG_MSG}</pattern>
+        </layout>
+    </appender>
+
+
+
+    <!-- ${LOG_ROOT_LEVEL} 日志级别 -->
+    <root level="${LOG_ROOT_LEVEL}">
+
+        <!-- 添加日志输出 STDOUT-->
+        <appender-ref ref="STDOUT"/>
+
+        <!-- 添加日志输出 FILE_ALL -->
+        <appender-ref ref="FILE_ALL"/>
+
+        <!-- 添加日志输出 FILE_ERROR -->
+        <appender-ref ref="FILE_ERROR"/>
+    </root>
+
+</configuration>

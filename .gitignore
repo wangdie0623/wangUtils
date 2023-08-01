@@ -1,5 +1,7 @@
 /common-utils/target/
 /web-api/target/
+/user-module/target/
+/spring-boot-utils/target/
 .idea
 *.iml
 *.log

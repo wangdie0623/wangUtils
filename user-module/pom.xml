@@ -9,26 +9,44 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>web-api</artifactId>
+    <artifactId>user-module</artifactId>
 
     <!--maven文档项目名-->
-    <name>web-api</name>
+    <name>user-module</name>
     <!--maven文档项目描述-->
     <description>微服务基础组件模板</description>
     <packaging>jar</packaging>
     <!--项目全局自定义属性列表-->
     <properties>
-        <name>web-api</name>
+        <name>user-module</name>
         <!--自定义属性java.version,值1.8-->
         <java.version>1.8</java.version>
     </properties>
 
     <!--第三方jar依赖列表-->
     <dependencies>
+        <!--jar包信息-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+            <version>${spring.boot.version}</version>
         </dependency>
 
         <dependency>
@@ -44,9 +62,34 @@
         </dependency>
 
         <dependency>
-            <groupId>cn.wang.custom</groupId>
-            <artifactId>spring-boot-utils</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.1.10</version>
+        </dependency>
+        <!--         swagger-ui2相关-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+
+
+        <!--redis相关-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>2.9.0</version>
         </dependency>
 
         <dependency>
@@ -54,7 +97,6 @@
             <artifactId>common-utils</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
     </dependencies>
 
     <!--全局构建配置，包括打包，插件等信息-->
@@ -136,7 +178,7 @@
                     <archive>
                         <manifest>
                             <!-- 指定 Spring Boot 启动类，实际测试中必须 -->
-                            <mainClass>cn.wang.custom.web.api.WebApiApplication</mainClass>
+                            <mainClass>cn.wang.custom.user.module.UserModuleApplication</mainClass>
                             <!-- 将所有第三方 jar 添加到项目 jar 的 MANIFEST.MF 文件中，这样运行 jar 时依赖包才能被加载 -->
                             <addClasspath>true</addClasspath>
                             <!-- 指定复制第三方 jar 的目标目录为 target/lib/-->
@@ -167,7 +209,7 @@
             <properties>
                 <env>local</env>
                 <!--日志目录-->
-                <logPath>${basedir}\logs</logPath>
+                <logPath>${basedir}\logs\${project.name}</logPath>
                 <!--日志级别-->
                 <logLevel>DEBUG</logLevel>
                 <!--                是否展示sql-->
@@ -184,7 +226,7 @@
             <properties>
                 <env>test</env>
                 <!--日志目录-->
-                <logPath>/data/logs</logPath>
+                <logPath>/data/logs/${project.name}</logPath>
                 <!--日志级别-->
                 <logLevel>INFO</logLevel>
                 <!--                是否展示sql-->
