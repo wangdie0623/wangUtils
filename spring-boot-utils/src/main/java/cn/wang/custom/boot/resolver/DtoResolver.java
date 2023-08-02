@@ -1,7 +1,6 @@
 package cn.wang.custom.boot.resolver;
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.io.ByteStreams;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.validation.DataBinder;
@@ -13,7 +12,9 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -55,9 +56,12 @@ public class DtoResolver implements HandlerMethodArgumentResolver {
         if (parameter.hasMethodAnnotation(RequestBody.class)) {
             HttpServletRequest servletRequest = webRequest.getNativeRequest(HttpServletRequest.class);
             ServletServerHttpRequest inputMessage = new ServletServerHttpRequest(servletRequest);
-            byte[] bytes = ByteStreams.toByteArray(inputMessage.getBody());
-            String byteStr = new String(bytes, "UTF-8");
-            return JSON.parseObject(byteStr, parameter.getParameterType());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputMessage.getBody(), "UTF-8"));
+            StringBuilder builder=new StringBuilder();
+            for (String line = reader.readLine();  line!=null ; line=reader.readLine()) {
+                builder.append(line);
+            }
+            return JSON.parseObject(builder.toString(), parameter.getParameterType());
         }
         Map<String, String[]> parameterMap = webRequest.getParameterMap();
         if (parameterMap.size() == 1) {

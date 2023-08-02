@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Import;
 import javax.sql.DataSource;
 
 @Configuration(proxyBeanMethods = false)
-@Import({DataSourceConfig.class, RedisConfig.class,SwaggerUIConfig.class,WebConfig.class})
+@Import({DataSourceConfig.class, RedisConfig.class,WebConfig.class,OpenApiConfig.class})
 public class CustomAutoBootConfig {
     @Bean
     public ValidationAspect validationAspect(){
