@@ -25,6 +25,33 @@
 
     <!--第三方jar依赖列表-->
     <dependencies>
+<!--        启用bootstrap-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+        <!-- SpringCloud Loadbalancer -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-loadbalancer</artifactId>
+        </dependency>
+        <!-- SpringCloud Alibaba Nacos discovery -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+        <!-- SpringCloud Alibaba Nacos Config -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+
+        <!-- SpringBoot Actuator -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -61,107 +88,6 @@
         </dependency>
     </dependencies>
 
-    <!--全局构建配置，包括打包，插件等信息-->
-    <build>
-        <!--指定最终打包后文件名-->
-        <finalName>${project.name}</finalName>
-        <!--打包文件存放地址 ${basedir} pom文件所在文件夹-->
-        <directory>${project.basedir}\target</directory>
-        <!--待过滤属性文件列表-->
-        <filters>
-            <!--单个过滤属性文件-->
-            <filter>${project.basedir}\src\main\resources\config\global.properties</filter>
-        </filters>
-        <!--资源文件打包配置列表-->
-        <resources>
-            <!--单个配置-->
-            <resource>
-                <!--默认false 是否执行maven过滤替换-->
-                <filtering>true</filtering>
-                <!--指定资源文件目录-->
-                <directory>${project.basedir}\src\main\resources</directory>
-                <!--资源排除项列表-->
-                <excludes>
-                    <!--单项配置-->
-                    <exclude>config/**</exclude>
-                </excludes>
-                <!--资源载入项列表-->
-                <includes>
-                    <!--载入当前目录所有文件-->
-                    <include>*</include>
-                    <!--载入views/目录下所有文件-->
-                    <include>views/**</include>
-                    <!--载入当前目录下jdbc目录指定文件-->
-                    <include>jdbc/${env}.properties</include>
-                    <!--载入当前目录下redis目录指定文件-->
-                    <include>redis/${env}.properties</include>
-                </includes>
-            </resource>
-        </resources>
-        <!--插件列表-->
-        <plugins>
-            <!--spring boot 打包插件-->
-<!--            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.1.7.RELEASE</version>
-                &lt;!&ndash;设置加入依赖jar&ndash;&gt;
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>-->
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.8</version>
-                <executions>
-                    <!-- 复制第三方 jar 到项目目录下的 target/lib/ 下 -->
-                    <execution>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <excludeScope>provided</excludeScope>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <!-- 指定 Spring Boot 启动类，实际测试中必须 -->
-                            <mainClass>cn.wang.custom.web.api.WebApiApplication</mainClass>
-                            <!-- 将所有第三方 jar 添加到项目 jar 的 MANIFEST.MF 文件中，这样运行 jar 时依赖包才能被加载 -->
-                            <addClasspath>true</addClasspath>
-                            <!-- 指定复制第三方 jar 的目标目录为 target/lib/-->
-                            <classpathPrefix>./lib/</classpathPrefix>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-
-            <!--            <plugin>-->
-            <!--                <groupId>org.apache.maven.plugins</groupId>-->
-            <!--                <artifactId>maven-surefire-plugin</artifactId>-->
-            <!--插件配置-->
-            <!--                <configuration>-->
-            <!--执行设置 默认false不跳过 true 跳过-->
-            <!--                    <skip>true</skip>-->
-            <!--                </configuration>-->
-            <!--            </plugin>-->
-
-        </plugins>
-    </build>
     <!--打包子选项配置列表-->
     <profiles>
         <!--单个子选项配置 可以使用全局配置所有标签，并在启用后相冲突时优先级高于全局配置-->
@@ -182,6 +108,108 @@
                 <!--是否激活 默认false 不激活 true 激活-->
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <!--全局构建配置，包括打包，插件等信息-->
+            <build>
+                <!--指定最终打包后文件名-->
+                <finalName>${project.name}</finalName>
+                <!--打包文件存放地址 ${basedir} pom文件所在文件夹-->
+                <directory>${project.basedir}\target</directory>
+                <!--待过滤属性文件列表-->
+                <filters>
+                    <!--单个过滤属性文件-->
+                    <filter>${project.basedir}\src\main\resources\config\global.properties</filter>
+                </filters>
+                <!--资源文件打包配置列表-->
+                <resources>
+                    <!--单个配置-->
+                    <resource>
+                        <!--默认false 是否执行maven过滤替换-->
+                        <filtering>true</filtering>
+                        <!--指定资源文件目录-->
+                        <directory>${project.basedir}\src\main\resources</directory>
+                        <!--资源排除项列表-->
+                        <excludes>
+                            <!--单项配置-->
+                            <exclude>config/**</exclude>
+                            <exclude>bootstrap.yml</exclude>
+                        </excludes>
+                        <!--资源载入项列表-->
+                        <includes>
+                            <!--载入当前目录所有文件-->
+                            <include>*</include>
+                            <!--载入views/目录下所有文件-->
+                            <include>views/**</include>
+                            <!--载入当前目录下jdbc目录指定文件-->
+                            <include>jdbc/${env}.properties</include>
+                            <!--载入当前目录下redis目录指定文件-->
+                            <include>redis/${env}.properties</include>
+                        </includes>
+                    </resource>
+                </resources>
+                <!--插件列表-->
+                <plugins>
+                    <!--spring boot 打包插件-->
+                    <!--            <plugin>
+                                    <groupId>org.springframework.boot</groupId>
+                                    <artifactId>spring-boot-maven-plugin</artifactId>
+                                    <version>2.1.7.RELEASE</version>
+                                    &lt;!&ndash;设置加入依赖jar&ndash;&gt;
+                                    <executions>
+                                        <execution>
+                                            <goals>
+                                                <goal>repackage</goal>
+                                            </goals>
+                                        </execution>
+                                    </executions>
+                                </plugin>-->
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <version>2.8</version>
+                        <executions>
+                            <!-- 复制第三方 jar 到项目目录下的 target/lib/ 下 -->
+                            <execution>
+                                <goals>
+                                    <goal>copy-dependencies</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                                    <excludeScope>provided</excludeScope>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <version>2.4</version>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <!-- 指定 Spring Boot 启动类，实际测试中必须 -->
+                                    <mainClass>cn.wang.custom.web.api.WebApiApplication</mainClass>
+                                    <!-- 将所有第三方 jar 添加到项目 jar 的 MANIFEST.MF 文件中，这样运行 jar 时依赖包才能被加载 -->
+                                    <addClasspath>true</addClasspath>
+                                    <!-- 指定复制第三方 jar 的目标目录为 target/lib/-->
+                                    <classpathPrefix>./lib/</classpathPrefix>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </plugin>
+
+                    <!--            <plugin>-->
+                    <!--                <groupId>org.apache.maven.plugins</groupId>-->
+                    <!--                <artifactId>maven-surefire-plugin</artifactId>-->
+                    <!--插件配置-->
+                    <!--                <configuration>-->
+                    <!--执行设置 默认false不跳过 true 跳过-->
+                    <!--                    <skip>true</skip>-->
+                    <!--                </configuration>-->
+                    <!--            </plugin>-->
+
+                </plugins>
+            </build>
         </profile>
         <profile>
             <id>test</id>
@@ -194,6 +222,107 @@
                 <!--                是否展示sql-->
                 <show.sql>false</show.sql>
             </properties>
+
+            <build>
+                <!--指定最终打包后文件名-->
+                <finalName>${project.name}</finalName>
+                <!--打包文件存放地址 ${basedir} pom文件所在文件夹-->
+                <directory>${project.basedir}\target</directory>
+                <!--待过滤属性文件列表-->
+                <filters>
+                    <!--单个过滤属性文件-->
+                    <filter>${project.basedir}\src\main\resources\config\global.properties</filter>
+                </filters>
+                <!--资源文件打包配置列表-->
+                <resources>
+                    <!--单个配置-->
+                    <resource>
+                        <!--默认false 是否执行maven过滤替换-->
+                        <filtering>true</filtering>
+                        <!--指定资源文件目录-->
+                        <directory>${project.basedir}\src\main\resources</directory>
+                        <!--资源排除项列表-->
+                        <excludes>
+                            <!--单项配置-->
+                            <exclude>config/**</exclude>
+                        </excludes>
+                        <!--资源载入项列表-->
+                        <includes>
+                            <!--载入当前目录所有文件-->
+                            <include>*</include>
+                            <!--载入views/目录下所有文件-->
+                            <include>views/**</include>
+                            <!--载入当前目录下jdbc目录指定文件-->
+                            <include>jdbc/${env}.properties</include>
+                            <!--载入当前目录下redis目录指定文件-->
+                            <include>redis/${env}.properties</include>
+                        </includes>
+                    </resource>
+                </resources>
+                <!--插件列表-->
+                <plugins>
+                    <!--spring boot 打包插件-->
+                    <!--            <plugin>
+                                    <groupId>org.springframework.boot</groupId>
+                                    <artifactId>spring-boot-maven-plugin</artifactId>
+                                    <version>2.1.7.RELEASE</version>
+                                    &lt;!&ndash;设置加入依赖jar&ndash;&gt;
+                                    <executions>
+                                        <execution>
+                                            <goals>
+                                                <goal>repackage</goal>
+                                            </goals>
+                                        </execution>
+                                    </executions>
+                                </plugin>-->
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <version>2.8</version>
+                        <executions>
+                            <!-- 复制第三方 jar 到项目目录下的 target/lib/ 下 -->
+                            <execution>
+                                <goals>
+                                    <goal>copy-dependencies</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                                    <excludeScope>provided</excludeScope>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <version>2.4</version>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <!-- 指定 Spring Boot 启动类，实际测试中必须 -->
+                                    <mainClass>cn.wang.custom.web.api.WebApiServerApplication</mainClass>
+                                    <!-- 将所有第三方 jar 添加到项目 jar 的 MANIFEST.MF 文件中，这样运行 jar 时依赖包才能被加载 -->
+                                    <addClasspath>true</addClasspath>
+                                    <!-- 指定复制第三方 jar 的目标目录为 target/lib/-->
+                                    <classpathPrefix>./lib/</classpathPrefix>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </plugin>
+
+                    <!--            <plugin>-->
+                    <!--                <groupId>org.apache.maven.plugins</groupId>-->
+                    <!--                <artifactId>maven-surefire-plugin</artifactId>-->
+                    <!--插件配置-->
+                    <!--                <configuration>-->
+                    <!--执行设置 默认false不跳过 true 跳过-->
+                    <!--                    <skip>true</skip>-->
+                    <!--                </configuration>-->
+                    <!--            </plugin>-->
+
+                </plugins>
+            </build>
         </profile>
     </profiles>
 </project>

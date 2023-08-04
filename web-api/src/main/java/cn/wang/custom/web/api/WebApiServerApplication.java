@@ -11,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
@@ -25,15 +26,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Import({CustomAutoBootConfig.class,UserModuleAutoConfig.class})
 @ComponentScan(
         excludeFilters = {
-                @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = WebApiServerApplication.class),
-                //@ComponentScan.Filter(type = FilterType.REGEX, pattern = "cn.wang.custom.user.module.controller.*.*")
+                @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = WebApiApplication.class)
         })
-public class WebApiApplication  implements ApplicationRunner {
+public class WebApiServerApplication implements ApplicationRunner {
     @Value("${spring.application.name}")
     private String name;
 
     public static void main(String[] args) {
-        SpringApplication.run(WebApiApplication.class, args);
+        SpringApplication.run(WebApiServerApplication.class, args);
     }
 
     @Override
