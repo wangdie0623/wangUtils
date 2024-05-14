@@ -3,25 +3,19 @@ package cn.wang.custom.utils.clazz;
 import cn.wang.custom.utils.WDateUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
+
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
+
 
 public class WClassUtils {
     /**
@@ -132,6 +126,16 @@ public class WClassUtils {
                     } else if (type.equals(String.class)) {
                         String val = String.valueOf(index);
                         builder.append(objName + "." + writeName + "(\"S" + val + "\");\r\n");
+                    } else if (type.equals(LocalDateTime.class)) {
+                        builder.append(objName + "." + writeName + "(LocalDateTime.now());\r\n");
+                    } else if (type.equals(Map.class)) {
+                        String val = String.valueOf(index);
+                        String code = "JSON.parseObject(\"{\\\"xx\\\":" + val + "}\",Map.class)";
+                        builder.append(objName + "." + writeName + "(" + code + ");\r\n");
+                    } else if (Collection.class.isAssignableFrom(type)) {
+                        String val = String.valueOf(index);
+                        String code = "JSON.parseArray(\"[" + val + "]\",Integer.class)";
+                        builder.append(objName + "." + writeName + "(" + code + ");\r\n");
                     } else {
                         String val = String.valueOf(index);
                         builder.append(objName + "." + writeName + "(" + val + ");\r\n");
@@ -224,51 +228,5 @@ public class WClassUtils {
         }
         return null;
     }
-
-
-    public static void main(String[] args) throws Exception {
-        File file = new File("D:\\workspace\\wangUtils\\a.txt");
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        String prefix="";
-        Pattern tableNameReg = Pattern.compile("([a-zA-Z_]+) ");
-        Pattern proContentReg = Pattern.compile("\\(((?=.*-).*)\\)");
-        StringBuilder builder = new StringBuilder();
-        for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-            if (StringUtils.isBlank(line)){
-                continue;
-            }
-            if (line.contains("相关表")){
-                prefix=line.replace("相关表","");
-            }
-            Matcher tableNameM = tableNameReg.matcher(line);
-            Matcher proM = proContentReg.matcher(line);
-            String tableName="";
-            if (tableNameM.find()) {
-                tableName=tableNameM.group(1);
-            }
-            String proContent="";
-            if (proM.find()) {
-                proContent=proM.group(1);
-            }
-            if (StringUtils.isBlank(proContent)){
-                continue;
-            }
-            builder.append("--"+tableName+"\r\n");
-            String[] split = proContent.split(",");
-            for (String item : split) {
-                String[] proArr = item.split("-");
-                String pro=proArr[0];
-                if ("EXCHANGE_RATE".equals(pro)){
-                    builder.append("alter table "+prefix+"."+tableName+" drop column "+pro+";\r\n");
-                    builder.append("alter table "+prefix+"."+tableName+" add "+pro+" NUMBER(18,6) default 1 not null;\r\n");
-                    builder.append("comment on column "+prefix+"."+tableName+"."+pro+"  is '汇率';\r\n");
-                }else{
-                    builder.append("alter table "+prefix+"."+tableName+" modify "+pro+" VARCHAR2(512);\r\n");
-                }
-            }
-        }
-        System.out.println(builder);
-    }
-
 
 }

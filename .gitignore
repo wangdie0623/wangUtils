@@ -2,6 +2,9 @@
 /web-api/target/
 /user-module/target/
 /spring-boot-utils/target/
+/web-gateway/target
 .idea
 *.iml
 *.log
+
+

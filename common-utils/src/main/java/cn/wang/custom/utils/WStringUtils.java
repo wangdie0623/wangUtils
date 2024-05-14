@@ -109,4 +109,26 @@ public class WStringUtils {
         return sb.toString();
     }
 
+    /**
+     * 驼峰转下划线
+     * @param source 待转换字符串
+     * @return 转换后字符串
+     */
+    public static String camelCaseT_(String source) {
+        if (source == null) {
+            return null;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < source.length(); i++) {
+            char c = source.charAt(i);
+            if ('A' <= c && 'Z' >= c) {
+                sb.append('_');
+                sb.append(Character.toLowerCase(c));
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
 }

@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
  * 日期相关工具类
  */
 public class WDateUtils {
-
     public static final String DATE_FORMAT_PATTERN_1 = "yyyy-MM-dd HH:mm:ss";
 
     public static final Pattern PATTERN_1 = Pattern.compile("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}");
@@ -41,17 +40,19 @@ public class WDateUtils {
 
     /**
      * 得到当前天 00:00:00
-     * @return
+     *
+     * @return 当前天 00:00:00
      */
-    public static Date getNowDayStartTime(){
-       return getDateOfStartTime(new Date());
+    public static Date getNowDayStartTime() {
+        return getDateOfStartTime(new Date());
     }
 
     /**
      * 得到当前天 23:59:59
-     * @return
+     *
+     * @return 当前天 23:59:59
      */
-    public static Date getNowDayEndTime(){
+    public static Date getNowDayEndTime() {
         return getDateOfEndTime(new Date());
     }
 
@@ -70,8 +71,8 @@ public class WDateUtils {
     /**
      * 转换日期为当天 23:59:59
      *
-     * @param source
-     * @return
+     * @param source 来源日期
+     * @return 当天 23:59:59
      */
     public static Date getDateOfEndTime(Date source) {
         Calendar calendar = Calendar.getInstance();
@@ -91,77 +92,82 @@ public class WDateUtils {
      * yyyyMMdd
      * yyyy-MM-dd
      * yyyy.MM.dd
-     * @param dateStr
-     * @return
+     *
+     * @param dateStr 日期字符串
+     * @return 日期
      */
     public static Date getDate(String dateStr) {
-        SimpleDateFormat format=null;
+        SimpleDateFormat format = null;
         try {
             if (PATTERN_1.matcher(dateStr).matches()) {
-                format=getPattern(DATE_FORMAT_PATTERN_1);
-               return format.parse(dateStr);
+                format = getPattern(DATE_FORMAT_PATTERN_1);
+                return format.parse(dateStr);
             }
             if (PATTERN_2.matcher(dateStr).matches()) {
-                format=getPattern(DATE_FORMAT_PATTERN_2);
+                format = getPattern(DATE_FORMAT_PATTERN_2);
                 return format.parse(dateStr);
             }
             if (PATTERN_3.matcher(dateStr).matches()) {
-                format=getPattern(DATE_FORMAT_PATTERN_3);
+                format = getPattern(DATE_FORMAT_PATTERN_3);
                 return format.parse(dateStr);
             }
             if (PATTERN_4.matcher(dateStr).matches()) {
-                format=getPattern(DATE_FORMAT_PATTERN_4);
+                format = getPattern(DATE_FORMAT_PATTERN_4);
                 return format.parse(dateStr);
             }
             if (PATTERN_5.matcher(dateStr).matches()) {
-                format=getPattern(DATE_FORMAT_PATTERN_5);
+                format = getPattern(DATE_FORMAT_PATTERN_5);
                 return format.parse(dateStr);
             }
             if (PATTERN_6.matcher(dateStr).matches()) {
-                format=getPattern(DATE_FORMAT_PATTERN_6);
+                format = getPattern(DATE_FORMAT_PATTERN_6);
                 return format.parse(dateStr);
             }
-            throw new RuntimeException("不被支持的日期数据格式:"+dateStr);
-        }catch (Exception e){
-            throw new RuntimeException("日期数据转换异常:"+dateStr+"|"+format.toPattern());
+            throw new RuntimeException("不被支持的日期数据格式:" + dateStr);
+        } catch (Exception e) {
+            assert format != null;
+            throw new RuntimeException("日期数据转换异常:" + dateStr + "|" + format.toPattern());
         }
     }
 
     /**
      * 以格式pattern，尝试转换dateStr 为Date对象
-     * @param dateStr
-     * @param pattern
-     * @return
+     *
+     * @param dateStr 日期字符串
+     * @param pattern 日期格式
+     * @return 日期
      */
-    public static Date getDate(String dateStr,String pattern) {
-        SimpleDateFormat format=getPattern(pattern);
+    public static Date getDate(String dateStr, String pattern) {
+        SimpleDateFormat format = getPattern(pattern);
         try {
             return format.parse(dateStr);
-        }catch (Exception e){
-            throw new RuntimeException("日期数据转换异常:"+dateStr+"|"+pattern);
+        } catch (Exception e) {
+            throw new RuntimeException("日期数据转换异常:" + dateStr + "|" + pattern);
         }
     }
 
     /**
      * 转换Date对象为指定格式：yyyy-MM-dd HH:mm:ss 字符串
-     * @param date
-     * @return
+     *
+     * @param date 日期
+     * @return 日期字符串
      */
-    public static String getStr(Date date){
-        if (date==null){
+    public static String getStr(Date date) {
+        if (date == null) {
             return "";
         }
-       return getPattern(DATE_FORMAT_PATTERN_1).format(date);
+        return getPattern(DATE_FORMAT_PATTERN_1).format(date);
     }
 
     /**
      * 将Date对象转为指定格式字符串
-     * @param date
-     * @param datePattern
-     * @return
+     *
+     * @param date        日期
+     * @param datePattern 日期格式
+     * @return 日期字符串
      */
-    public static String getStr(Date date,String datePattern){
-        if (date==null||StringUtils.isBlank(datePattern)){
+    public static String getStr(Date date, String datePattern) {
+        if (date == null || StringUtils.isBlank(datePattern)) {
             return "";
         }
         SimpleDateFormat pattern = getPattern(datePattern);
@@ -170,41 +176,44 @@ public class WDateUtils {
 
     /**
      * 创建日期格式化对象
-     * @param datePattern
-     * @return
+     *
+     * @param datePattern 日期格式
+     * @return 日期转换工具对象
      */
-    private static SimpleDateFormat getPattern(String datePattern){
+    private static SimpleDateFormat getPattern(String datePattern) {
         return new SimpleDateFormat(datePattern);
     }
 
     /**
      * 得到当前周（中国人），所有Date对象
-     * @return
+     *
+     * @return 当前周日期集合
      */
-    public static List<Date> getNowWeekList(){
-       return getWeekList(new Date());
+    public static List<Date> getNowWeekList() {
+        return getWeekList(new Date());
     }
 
     /**
      * 根据指定天 获取包含它的那一周(中国人)的Date集合
-     * @param position
-     * @return
+     *
+     * @param position 日期
+     * @return 当前周日期集合
      */
-    public static List<Date> getWeekList(Date position){
-        Calendar calendar=Calendar.getInstance();
+    public static List<Date> getWeekList(Date position) {
+        Calendar calendar = Calendar.getInstance();
         calendar.setTime(position);
         int i = calendar.get(Calendar.DAY_OF_WEEK);
-        List<Date> result= new ArrayList<Date>();
+        List<Date> result = new ArrayList<>();
         //根据外国人的每周第一天做调整
-        if (i==1){
-            calendar.add(Calendar.DAY_OF_YEAR,-6);
-        }else {
-            calendar.set(Calendar.DAY_OF_WEEK,2);
+        if (i == 1) {
+            calendar.add(Calendar.DAY_OF_YEAR, -6);
+        } else {
+            calendar.set(Calendar.DAY_OF_WEEK, 2);
         }
         //每周第一天
         result.add(calendar.getTime());
         for (int j = 0; j < 6; j++) {
-            calendar.add(Calendar.DAY_OF_YEAR,1);
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
             result.add(calendar.getTime());
         }
         return result;
@@ -212,34 +221,36 @@ public class WDateUtils {
 
     /**
      * 得到当前时间，包含它的那周（中国人），格式:yyyy-MM-dd HH:mm:ss 的字符串集合
-     * @return
+     *
+     * @return 当前周日期字符串集合
      */
-    public static List<String> getNowWeekStrList(){
-        return getWeekStrList(new Date(),DATE_FORMAT_PATTERN_1);
+    public static List<String> getNowWeekStrList() {
+        return getWeekStrList(new Date(), DATE_FORMAT_PATTERN_1);
     }
 
     /**
      * 得到指定日期，包含它的那周（中国人），指定格式的字符串集合
-     * @param position
-     * @param pattern
-     * @return
+     *
+     * @param position 日期
+     * @param pattern  日期格式
+     * @return 当前周日期字符串集合
      */
-    public static List<String> getWeekStrList(Date position,String pattern){
-        Calendar calendar=Calendar.getInstance();
+    public static List<String> getWeekStrList(Date position, String pattern) {
+        Calendar calendar = Calendar.getInstance();
         calendar.setTime(position);
         int i = calendar.get(Calendar.DAY_OF_WEEK);
-        List<String> result= new ArrayList<String>();
-        SimpleDateFormat patternFormat=getPattern(pattern);
+        List<String> result = new ArrayList<>();
+        SimpleDateFormat patternFormat = getPattern(pattern);
         //根据外国人的每周第一天做调整
-        if (i==1){
-            calendar.add(Calendar.DAY_OF_YEAR,-6);
-        }else {
-            calendar.set(Calendar.DAY_OF_WEEK,2);
+        if (i == 1) {
+            calendar.add(Calendar.DAY_OF_YEAR, -6);
+        } else {
+            calendar.set(Calendar.DAY_OF_WEEK, 2);
         }
         //每周第一天
         result.add(patternFormat.format(calendar.getTime()));
         for (int j = 0; j < 6; j++) {
-            calendar.add(Calendar.DAY_OF_YEAR,1);
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
             result.add(patternFormat.format(calendar.getTime()));
         }
         return result;
@@ -254,11 +265,12 @@ public class WDateUtils {
      * yyyyMMdd
      * yyyy-MM-dd
      * yyyy.MM.dd
-     * @param dateStr1
-     * @param dateStr2
+     *
+     * @param dateStr1 日期字符串
+     * @param dateStr2 日期字符串
      * @return true-是 false-不是
      */
-    public static boolean before(String dateStr1,String dateStr2){
+    public static boolean before(String dateStr1, String dateStr2) {
         Date date1 = getDate(dateStr1);
         Date date2 = getDate(dateStr2);
         return date1.before(date2);
@@ -273,11 +285,12 @@ public class WDateUtils {
      * yyyyMMdd
      * yyyy-MM-dd
      * yyyy.MM.dd
-     * @param dateStr1
-     * @param dateStr2
+     *
+     * @param dateStr1 日期字符串
+     * @param dateStr2 日期字符串
      * @return true-是 false-不是
      */
-    public static boolean after(String dateStr1,String dateStr2){
+    public static boolean after(String dateStr1, String dateStr2) {
         Date date1 = getDate(dateStr1);
         Date date2 = getDate(dateStr2);
         return date1.after(date2);
@@ -285,29 +298,27 @@ public class WDateUtils {
 
     /**
      * 得到指定日期前N天日期
+     *
      * @param source 指定日期
-     * @param days N天
-     * @return
+     * @param days   N天
+     * @return 日期
      */
-    public static Date beforeNDays(Date source,int days){
+    public static Date beforeNDays(Date source, int days) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(source);
-        calendar.add(Calendar.DAY_OF_YEAR,-days);
+        calendar.add(Calendar.DAY_OF_YEAR, -days);
         return calendar.getTime();
     }
 
     /**
      * 得到指定日期后N天日期
+     *
      * @param source 指定日期
-     * @param days N天
-     * @return
+     * @param days   N天
+     * @return 日期
      */
-    public static Date afterNDays(Date source,int days){
-        return beforeNDays(source,-days);
+    public static Date afterNDays(Date source, int days) {
+        return beforeNDays(source, -days);
     }
 
-    public static void main(String[] args) {
-        Date date = afterNDays(new Date(), 2);
-        System.out.println(getStr(date));
-    }
 }

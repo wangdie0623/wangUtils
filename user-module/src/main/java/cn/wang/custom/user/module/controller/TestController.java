@@ -1,13 +1,9 @@
-package cn.wang.custom.web.api.controller;
+package cn.wang.custom.user.module.controller;
 
 
 import cn.wang.custom.boot.utils.BusinessIdUtils;
-import cn.wang.custom.web.api.beans.JsonResult;
-import cn.wang.custom.web.api.dtos.DtoMsgReq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.ExecutorService;
@@ -18,7 +14,7 @@ import java.util.concurrent.Executors;
 public class TestController {
    private ExecutorService pool = Executors.newFixedThreadPool(10);
 
-    @GetMapping("/test/demo")
+    @GetMapping("/test")
     public String hello() {
         String mark = BusinessIdUtils.getMark();
         pool.execute(() -> {
@@ -28,10 +24,5 @@ public class TestController {
         return "hello world";
     }
 
-    @PostMapping("/test/errorTest")
-    @ResponseBody
-    public String errorTest(DtoMsgReq msgReq) {
 
-        return JsonResult.ok(null);
-    }
 }

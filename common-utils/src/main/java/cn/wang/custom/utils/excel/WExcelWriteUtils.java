@@ -21,11 +21,11 @@ public class WExcelWriteUtils {
      * @param isOld     是否旧格式
      * @param content   内容
      * @param sheetName sheet名称
-     * @return
+     * @return 内容集合
      */
     public static byte[] writeBook(boolean isOld, List<Map<Integer, String>> content, String sheetName) throws IOException {
         Workbook book = WExcelUtils.getBook(isOld);
-        Sheet sheet = null;
+        Sheet sheet;
         if (StringUtils.isBlank(sheetName)) {
             sheet = book.createSheet();
         } else {

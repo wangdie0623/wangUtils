@@ -35,6 +35,6 @@ server:
   #  挂载端口
   port: '@config.port@'
   #  请求服务配置
-  servlet:
+  #servlet:
     #    请求服务根路径配置 默认空
-    context-path: /${spring.application.name}
+  #  context-path: /${spring.application.name}

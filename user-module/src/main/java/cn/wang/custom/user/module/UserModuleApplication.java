@@ -11,8 +11,6 @@ import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -28,8 +26,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EntityScan("cn.wang.custom.user.module.entity")
 //导入springboot通用配置
 @Import({CustomAutoBootConfig.class})
-//自定义排除
-@ComponentScan(excludeFilters= {@ComponentScan.Filter(type= FilterType.ASSIGNABLE_TYPE, value= {UserModuleAutoConfig.class})})
 public class UserModuleApplication implements ApplicationRunner {
     @Value("${spring.application.name}")
     private String name;

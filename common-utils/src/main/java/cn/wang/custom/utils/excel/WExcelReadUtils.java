@@ -20,7 +20,7 @@ public class WExcelReadUtils {
      * @param fileDate   数据字节数组
      * @param fileName   数据文件名
      * @param sheetIndex 工作区下标 从0开始
-     * @return
+     * @return 内容集合
      */
     public static List<Map<Integer, String>> getExcelRowMapList(byte[] fileDate, String fileName, int sheetIndex) {
         try (Workbook book = WExcelUtils.getBook(fileDate, WExcelUtils.isOld(fileName))) {
@@ -37,7 +37,7 @@ public class WExcelReadUtils {
      * @param fileDate  数据字节数组
      * @param fileName  数据文件名
      * @param sheetName 工作区名
-     * @return
+     * @return 内容集合
      */
     public static List<Map<Integer, String>> getExcelRowMapList(byte[] fileDate, String fileName, String sheetName) {
         try (Workbook book = WExcelUtils.getBook(fileDate, WExcelUtils.isOld(fileName))) {
@@ -53,7 +53,7 @@ public class WExcelReadUtils {
             return Collections.emptyList();
         }
         Sheet sheet = book.getSheet(sheetName);
-        return getExcelRowMapList(book, sheet);
+        return getExcelRowMapList(sheet);
     }
 
     private static List<Map<Integer, String>> getExcelRowMapList(Workbook book, int sheetIndex) {
@@ -61,17 +61,16 @@ public class WExcelReadUtils {
             return Collections.emptyList();
         }
         Sheet sheet = book.getSheetAt(sheetIndex);
-        return getExcelRowMapList(book, sheet);
+        return getExcelRowMapList(sheet);
     }
 
     /**
      * 获取指定工作区数据
      *
-     * @param book  工作对象
      * @param sheet 工作区下标 从0开始
      * @return 工作区数据
      */
-    private static List<Map<Integer, String>> getExcelRowMapList(Workbook book, Sheet sheet) {
+    private static List<Map<Integer, String>> getExcelRowMapList(Sheet sheet) {
         if (sheet == null) {
             return Collections.emptyList();
         }
@@ -99,5 +98,5 @@ public class WExcelReadUtils {
         return result;
     }
 
-
 }
+

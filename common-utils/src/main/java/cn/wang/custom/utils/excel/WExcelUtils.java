@@ -1,5 +1,7 @@
 package cn.wang.custom.utils.excel;
 
+
+
 import cn.wang.custom.utils.WDateUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -52,7 +54,7 @@ public class WExcelUtils {
      * @param fileDate 文件字节数组
      * @param isOld    是否xls结尾文件
      * @return excel工作对象
-     * @throws IOException
+     * @throws IOException io异常
      */
     public static Workbook getBook(byte[] fileDate, boolean isOld) throws IOException {
         if (fileDate == null || fileDate.length == 0) {
@@ -114,8 +116,8 @@ public class WExcelUtils {
 
     /**
      * 得到空工作对象
-     * @param isOld
-     * @return
+     * @param isOld 是否旧版本 true-是 false-否
+     * @return 工作对象
      */
     public static Workbook getBook(boolean isOld){
         if (isOld){
