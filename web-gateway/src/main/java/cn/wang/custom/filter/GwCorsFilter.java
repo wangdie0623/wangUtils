@@ -1,4 +1,4 @@
-package cn.wang.custom;
+package cn.wang.custom.filter;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

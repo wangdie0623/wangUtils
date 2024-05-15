@@ -1,4 +1,4 @@
-package cn.wang.custom;
+package cn.wang.custom.filter;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.web.ServerProperties;

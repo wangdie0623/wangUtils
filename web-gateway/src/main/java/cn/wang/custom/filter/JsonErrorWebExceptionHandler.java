@@ -1,4 +1,4 @@
-package cn.wang.custom;
+package cn.wang.custom.filter;
 
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.WebProperties;
