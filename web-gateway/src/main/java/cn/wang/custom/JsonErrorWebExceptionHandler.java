@@ -3,6 +3,7 @@ package cn.wang.custom;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.DefaultErrorWebExceptionHandler;
+import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
@@ -25,8 +26,7 @@ public class JsonErrorWebExceptionHandler extends DefaultErrorWebExceptionHandle
     }
 
     @Override
-    protected Map<String, Object> getErrorAttributes(ServerRequest request, boolean includeStackTrace) {
-        // 这里可以根据异常类型进行定制化逻辑
+    protected Map<String, Object> getErrorAttributes(ServerRequest request, ErrorAttributeOptions options) {
         Throwable error = super.getError(request);
         Map<String, Object> errorAttributes = new HashMap<>(8);
         errorAttributes.put("message", error.getMessage());
@@ -48,6 +48,6 @@ public class JsonErrorWebExceptionHandler extends DefaultErrorWebExceptionHandle
     @Override
     protected int getHttpStatus(Map<String, Object> errorAttributes) {
         // 这里其实可以根据errorAttributes里面的属性定制HTTP响应码
-        return (int)errorAttributes.get("code");
+        return (int)errorAttributes.get("status");
     }
 }

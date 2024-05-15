@@ -19,6 +19,7 @@ import javax.sql.DataSource;
 @Configuration(proxyBeanMethods = false)
 @Import({DataSourceConfig.class, RedisConfig.class,WebConfig.class,OpenApiConfig.class})
 public class CustomAutoBootConfig {
+
     @Bean
     public ValidationAspect validationAspect(){
         return new ValidationAspect();
