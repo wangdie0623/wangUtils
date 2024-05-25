@@ -2,6 +2,7 @@ package cn.wang.custom.user.module.service;
 
 
 import cn.wang.custom.user.module.entity.WAccount;
+import cn.wang.custom.vo.AccountVo;
 
 public interface IUserService {
 
@@ -23,4 +24,11 @@ public interface IUserService {
      * @return
      */
     WAccount login(String name, String pwd);
+
+    /**
+     * 查询全量数据
+     * @param name
+     * @return
+     */
+    AccountVo queryFullInfo(String name);
 }

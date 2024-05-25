@@ -10,21 +10,17 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "custom_account")
-public class WAccount {
+@Table(name = "account_role")
+public class WAccountRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name", unique = true, nullable = false,length = 64)
-    private String name;//用户名
-
-    @Column(name = "pwd", length = 32)
-    private String pwd;//密码
-
-    @Column(name = "phone", length = 11, nullable = false, unique = true)
-    private String phone;//手机号
+    @Column(name = "account_id", nullable = false)
+    private Long account_id;
+    @Column(name = "role_id", nullable = false)
+    private Long role_id;
 
     @Column(name = "create_date", nullable = false)
     private Date createDate;//创建时间
@@ -32,12 +28,11 @@ public class WAccount {
     @Column(name = "update_date", nullable = false)
     private Date updateDate;//更新时间
 
-    @Column(name = "create_user",nullable = false,length = 32)
+    @Column(name = "create_user", nullable = false, length = 32)
     private String createUser;//创建者标识
 
-    @Column(name = "update_user",nullable = false,length = 32)
+    @Column(name = "update_user", nullable = false, length = 32)
     private String updateUser;//更新者标识
-
     @Column(name = "delete_status", nullable = false)//1-已删除 0-正常
     private Integer deleteStatus=0;
 }

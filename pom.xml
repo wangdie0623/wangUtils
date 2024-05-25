@@ -12,6 +12,7 @@
         <module>user-module</module>
         <module>spring-boot-utils</module>
         <module>web-gateway</module>
+        <module>common-api</module>
     </modules>
     <packaging>pom</packaging>
 

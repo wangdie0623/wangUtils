@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Map;
 
 
-public class CommonDaoImpl implements ICommonDao {
+public  class CommonDaoImpl implements ICommonDao {
     @PersistenceContext
     protected EntityManager entityManager;
 
@@ -42,7 +42,7 @@ public class CommonDaoImpl implements ICommonDao {
 
     @Override
     public Query getSqlQuery(String sql) {
-        return getSession().createSQLQuery(sql);
+        return getSession().createNativeQuery(sql);
     }
 
     @Override

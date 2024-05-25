@@ -1,7 +1,6 @@
 package cn.wang.custom.boot.dao.impl;
 
 
-
 import cn.wang.custom.boot.dao.IVuePageCommonDao;
 import cn.wang.custom.boot.utils.VuePageResult;
 import com.alibaba.druid.support.logging.Log;
@@ -11,7 +10,6 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.hibernate.query.internal.NativeQueryImpl;
 import org.hibernate.transform.Transformers;
-import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.List;
@@ -20,7 +18,7 @@ import java.util.Map;
 /**
  * @author 王叠  2019-07-08 11:02
  */
-public class VuePageCommonDaoImpl extends CommonDaoImpl implements IVuePageCommonDao {
+public  class VuePageCommonDaoImpl extends CommonDaoImpl implements IVuePageCommonDao {
     protected Log log = LogFactory.getLog(getClass());
 
     public VuePageResult queryPage(String hql, Object[] args, Integer pageNum, Integer pageSize) {
@@ -63,8 +61,8 @@ public class VuePageCommonDaoImpl extends CommonDaoImpl implements IVuePageCommo
     @Override
     public VuePageResult querySqlPage(String sql, Map<String, Object> args, Integer pageNum, Integer pageSize, Class clazz) {
         Session session = getSession();
-        Query query = session.createSQLQuery(sql);
-        query.unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+        Query query = session.createNativeQuery(sql);
+        query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         VuePageResult page = query(query, sql, args, pageNum, pageSize, true);
         if (page == null || page.getList() == null || page.getList().isEmpty()) {
             return page;

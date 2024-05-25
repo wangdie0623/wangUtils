@@ -1,7 +1,12 @@
 package cn.wang.custom.user.module.dao;
 
 import cn.wang.custom.boot.dao.ICommonDao;
+import cn.wang.custom.boot.utils.VuePageResult;
+import cn.wang.custom.query.UserQuery;
 import cn.wang.custom.user.module.entity.WAccount;
+import cn.wang.custom.vo.AccountVo;
+
+import java.util.List;
 
 public interface IWUserDao extends ICommonDao {
     /**
@@ -37,4 +42,18 @@ public interface IWUserDao extends ICommonDao {
      * @return 最大的无效手机号
      */
     String selectMaxEmptyPhone();
+
+    /**
+     * 分页查询
+     * @param query 查询对象
+     * @return 用户信息分页集合
+     */
+    VuePageResult<AccountVo> queryPage(UserQuery query);
+
+    /**
+     * 集合查询
+     * @param query 查询对象
+     * @return 用户信息集合
+     */
+    List<AccountVo> queryList(UserQuery query);
 }
